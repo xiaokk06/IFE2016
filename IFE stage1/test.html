@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style type="text/css">
+    .layout {
+        padding-right: 210px;
+    }
+    
+    .layout__main {
+        width: 100%;
+        float: left;
+    }
+    
+    .layout__aside {
+        float: right;
+        width: 200px;
+        margin-right: -210px;
+    }
+    
+    .layout:after {
+        clear: both;
+        content: " ";
+        display: table;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="layout">
+            <div class="layout__main">主内容栏宽度自适应</div>
+            <aside class="layout__aside">侧边栏宽度固定</aside>
+        </div>
+    </div>
+</body>
+
+</html>
