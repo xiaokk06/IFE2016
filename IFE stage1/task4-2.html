@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewpoint" content="width=device-width,initial-scale=1.0,height=device-height" />
+    <title>task4-2</title>
+    <style>
+    body,html{
+    	height: 100%;
+    }
+    *{
+    	margin:0;
+    	top: 0;
+    }
+    body{
+    	/*浏览器兼容性*/
+    	display: -webkit-flex;
+    	display: flex;
+    	justify-content:center;
+    	align-items: center;
+    	height: 100%;
+    }
+    .box {
+        width: 400px;
+        height: 200px;
+        background-color: #ccc;
+    }
+	.TopLeft,.BottomRight{
+		width: 50px;
+		height: 50px;
+		background-color: #fc0;
+	}
+
+    .TopLeft{
+    	top: 0;
+    	left:0;
+    	border-bottom-right-radius: 100%;
+    }
+    .BottomRight{
+    	margin-top: 100px;
+    	margin-left: 350px;
+    	border-top-left-radius: 100%;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="TopLeft"></div>
+        <div class="BottomRight"></div>
+    </div>
+</body>
+
+</html>
