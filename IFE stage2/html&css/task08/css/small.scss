@@ -1,0 +1,45 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.col-sm {
+    background-color: #eee;
+    text-align: center;
+    height: 50px;
+    margin: 10px;
+    border: 1px solid #999;
+    line-height: 50px;
+    box-sizing:border-box;
+}
+
+.row {
+    width: 100%;
+    min-width: 570px;
+    display: flex;
+    flex-flow:row wrap;
+    .col-sm-2 {
+        @extend .col-sm;
+        order: -1;
+        flex: 2 1 calc(16.6% - 20px);
+    }
+    .col-sm-3 {
+        @extend .col-sm;
+        flex: 0 1 calc(25% - 20px);
+    }
+    .col-sm-6 {
+        @extend .col-sm;
+        flex: 0 1 calc(50% - 20px);
+    }
+    .col-sm-8 {
+        order: -1;
+        @extend .col-sm;
+        flex: 8 1 calc(66.8% - 20px);
+    }
+    .col-sm-12 {
+        @extend .col-sm;
+        display: block;
+        flex: 0 1 calc(100% - 20px);
+    }
+}

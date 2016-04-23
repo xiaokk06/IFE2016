@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>canvas</title>
+    <script type="text/javascript">
+    function draw() {
+        var canvas = document.getElementById("canvas");
+        if (canvas.getContext) {
+            var ctx = canvas.getContext("2d");
+
+            ctx.fillStyle = "#ccc";
+            ctx.fillRect(0, 0, 400, 200);
+
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, 50, 0, 0.5 * Math.PI, false);
+            ctx.fillStyle = "#fc0";
+            ctx.fill();
+            ctx.closePath();
+
+
+            ctx.beginPath();
+            ctx.moveTo(400, 200);
+            ctx.arc(400, 200, 50, Math.PI, 1.5 * Math.PI, false);
+            ctx.fill();
+            ctx.closePath();
+
+
+        }
+    }
+    </script>
+    <style style="text/css">
+    canvas {
+        /*border: 1px solid #000;*/
+        position: absolute;
+        top: 50%;
+        margin-top: -100px;
+        left: 50%;
+        margin-left: -200px;
+    }
+    </style>
+</head>
+
+<body onload="draw()">
+    <canvas id="canvas" width="400" height="200"></canvas>
+</body>
+
+</html>

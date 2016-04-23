@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>task12</title>
+    <style>
+    .wrap {
+        margin: 10px auto;
+        width: 300px;
+    }
+    
+    .table {
+        border: none;
+        width: 300px;
+        margin: 10px auto;
+        text-align: left;
+    }
+    
+    tr:nth-of-type(odd) {
+        background-color: #eee;
+    }
+    
+    tr:nth-of-type(4),
+    tr:nth-of-type(2),
+    tr:nth-of-type(3) {
+        color: #f00;
+    }
+    
+    tr:first-of-type {
+        background-color: #000;
+        color: #fff;
+    }
+    
+    .input {
+        margin: 0 auto;
+    }
+    
+    .animate {
+        margin: 0 auto;
+        /*width: 100px;*/
+        display: block;
+    }
+    
+    input:focus {
+        box-shadow: 2px 2px 4px #3399CC;
+        animation: widthchange 0.5s ease-out forwards;
+    }
+    
+    input:not(:focus) {
+        box-shadow: none;
+        animation: widthback 0.5s ease-in forwards;
+    }
+    
+    @keyframes widthchange {
+        0% {
+            width: 100px;
+        }
+        100% {
+            width: 200px;
+        }
+    }
+    
+    @keyframes widthback {
+        0% {
+            width: 200px;
+        }
+        100% {
+            width: 100px;
+        }
+    }
+    
+    .slider {
+        position: relative;
+        width: 300px;
+        height: 200px;
+        /*background-color: #0f0;*/
+    }
+    
+    .clearfix {
+        padding: 0;
+        position: relative;
+        top: 175px;
+        left: 200px;
+        z-index: 9999;
+        list-style: none;
+    }
+    
+    .clearfix li {
+        float: left;
+        display: inline-block;
+        height: 20px;
+        width: 20px;
+        background-color: rgba(255, 255, 255, .5);
+        margin-right: 10px;
+        text-align: center;
+        line-height: 20px;
+    }
+    
+    .clearfix:li:last-of-type {
+        margin-right: 0;
+    }
+    
+    .clearfix li a {
+        text-decoration: none;
+        outline: none;
+        cursor: pointer;
+    }
+    
+    li:nth-of-type(1) a:after {
+        background: url(http://www.w3cplus.com/demo/css3/CSS3Fullbackground/sbg1.jpg) no-repeat center;
+        background-size: 100% 100%;
+    }
+    
+    li:nth-of-type(2) a:after {
+        background: url(http://www.w3cplus.com/demo/css3/CSS3Fullbackground/sbg2.jpg) no-repeat center;
+        background-size: 100% 100%;
+    }
+    
+    li:nth-of-type(3) a:after {
+        background: url(http://www.w3cplus.com/demo/css3/CSS3Fullbackground/sbg3.jpg) no-repeat center;
+        background-size: 100% 100%;
+    }
+    
+    @keyframes slideLeft {
+        0% {
+            left: -150px;
+        }
+        100% {
+            left: 0;
+        }
+    }
+    
+    @keyframes slideDown {
+        0% {
+            top: -100px;
+        }
+        100% {
+            top: 0;
+        }
+    }
+    
+    @keyframes zoomIn {
+        0% {
+            transform: scale(0.1);
+        }
+        100% {
+            transform: none;
+        }
+    }
+    
+    @keyframes notTarget {
+        0% {
+            z-index: 75;
+        }
+        100% {
+            z-index: 75;
+        }
+    }
+    
+    .slider .bg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+    }
+    
+    .slideLeft:target {
+        z-index: 100;
+        animation: slideLeft 1s 1;
+    }
+    /*背景图从下向上出现*/
+    
+    .slideDown:target {
+        z-index: 100;
+        animation: slideDown 1s 1;
+    }
+    /*背景图由小到大出现*/
+    
+    .zoomIn:target {
+        z-index: 100;
+        animation: zoomIn 1s 1;
+    }
+    
+    .bg:not(:target) {
+        animation: notTarget 1s 1;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <table class="table">
+            <tr>
+                <th>排名</th>
+                <th>网站</th>
+                <th>热度</th>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td>百度前端技术学院</td>
+                <td>13200</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>百度前端技术学院</td>
+                <td>13100</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>百度前端技术学院</td>
+                <td>13000</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>百度前端技术学院</td>
+                <td>12900</td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>百度前端技术学院</td>
+                <td>12800</td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>百度前端技术学院</td>
+                <td>12700</td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>百度前端技术学院</td>
+                <td>12600</td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td>百度前端技术学院</td>
+                <td>12500</td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td>百度前端技术学院</td>
+                <td>12400</td>
+            </tr>
+            <tr>
+                <td>10.</td>
+                <td>百度前端技术学院</td>
+                <td>12300</td>
+            </tr>
+        </table>
+        <div class="input">
+            <input type="text" class="animate">
+        </div>
+        <div class="slider">
+            <ul class="clearfix">
+                <li><a href="#bg1">1</a></li>
+                <li><a href="#bg2">2</a></li>
+                <li><a href="#bg3">3</a></li>
+            </ul>
+            <img src="http://www.w3cplus.com/demo/css3/CSS3Fullbackground/bg1.jpg" alt="" class="bg slideLeft" id="bg1" />
+            <img src="http://www.w3cplus.com/demo/css3/CSS3Fullbackground/bg2.jpg" alt="" class="bg slideDown" id="bg2" />
+            <img src="http://www.w3cplus.com/demo/css3/CSS3Fullbackground/bg3.jpg" alt="" class="bg zoomIn" id="bg3" />
+        </div>
+    </div>
+</body>
+
+</html>

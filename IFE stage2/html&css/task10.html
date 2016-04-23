@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>flexbox</title>
+	<style>
+	html,body{
+		/*height: 100%;*/
+		/*width: 100%;*/
+	}
+	.row {
+		margin-top: 200px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
+		@media screen and (min-width: 640px){
+			div[class*='box']{
+				width: 150px;
+				border: 1px solid #f00;
+				/*padding:20px;*/
+				flex: 0 1 150px;
+				margin: 10px;
+			}
+			.row div:last-of-type{
+				border: 1px solid blue;
+			}
+			.box1{
+				height: 120px;
+			}
+			.box2{
+				height: 100px;
+			}
+			.box3{
+				height: 40px;
+			}
+			.box4{
+				height: 200px;
+			}
+		}
+		@media screen and (max-width: 640px){
+			.row{
+				align-items: flex-start;
+				flex-flow: row wrap;
+				min-width: 520px;
+			}
+			div[class*='box']{
+				width: 150px;
+				border: 1px solid #f00;
+				/*padding:20px;*/
+				flex: 0 1 150px;
+				margin: 10px;
+			}
+			.row div:last-of-type{
+				border: 1px solid blue;
+			}
+			.box1{
+				height: 120px;
+			}
+			.box2{
+				height: 100px;
+			}
+			.box3{
+				height: 40px;
+			}
+			.box4{
+				order: -1;
+				height: 200px;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="row">
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<div class="box3"></div>
+		<div class="box4"></div>
+	</div>
+</body>
+</html>

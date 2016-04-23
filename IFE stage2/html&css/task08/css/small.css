@@ -1,0 +1,32 @@
+html,
+body {
+  height: 100%;
+  width: 100%; }
+
+.col-sm, .row .col-sm-2, .row .col-sm-3, .row .col-sm-6, .row .col-sm-8, .row .col-sm-12 {
+  background-color: #eee;
+  text-align: center;
+  height: 50px;
+  margin: 10px;
+  border: 1px solid #999;
+  line-height: 50px;
+  box-sizing: border-box; }
+
+.row {
+  width: 100%;
+  min-width: 570px;
+  display: flex;
+  flex-flow: row wrap; }
+  .row .col-sm-2 {
+    order: -1;
+    flex: 2 1 calc(16.6% - 20px); }
+  .row .col-sm-3 {
+    flex: 0 1 calc(25% - 20px); }
+  .row .col-sm-6 {
+    flex: 0 1 calc(50% - 20px); }
+  .row .col-sm-8 {
+    order: -1;
+    flex: 8 1 calc(66.8% - 20px); }
+  .row .col-sm-12 {
+    display: block;
+    flex: 0 1 calc(100% - 20px); }
