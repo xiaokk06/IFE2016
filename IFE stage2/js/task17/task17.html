@@ -10,19 +10,20 @@
 
 <body>
     <fieldset id="form-gra-time">
-        <legend>请选择日期粒度：</legend>
-        <label>日
-            <input name="gra-time" value="day" type="radio" checked="checked">
-        </label>
-        <label>周
-            <input name="gra-time" value="week" type="radio">
-        </label>
-        <label>月
-            <input name="gra-time" value="month" type="radio">
-        </label>
+        <legend>请选择日期粒度和城市：</legend>
+        <div id="timeGram">
+            <label>日
+                <input name="gra-time" value="day" type="radio" checked="checked">
+            </label>
+            <label>周
+                <input name="gra-time" value="week" type="radio">
+            </label>
+            <label>月
+                <input name="gra-time" value="month" type="radio">
+            </label>
+        </div>
         <label for="city-select">请选择查看的城市</label>
         <select id="city-select">
-          
         </select>
     </fieldset>
     <div class="aqi-chart-wrap">

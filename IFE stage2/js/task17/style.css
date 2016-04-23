@@ -21,6 +21,10 @@ select {
     text-align: center;
 }
 
+#timeGram{
+    display: inline-block;
+}
+
 
 /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
 

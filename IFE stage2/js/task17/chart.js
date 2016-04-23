@@ -37,7 +37,9 @@
        }
 
        var wrap=getElementByClassName("",'aqi-chart-wrap')[0];
-       console.log(wrap);
+       // console.log(wrap);
+       var citySelect=document.getElementById('city-select');
+       var gramSelect=document.getElementsByName('gra-time');
 
         // 以下两个函数用于随机模拟生成测试数据
         function getDateStr(dat) {
@@ -59,6 +61,20 @@
                 dat.setDate(dat.getDate() + 1);
             }
             return returnData;
+        }
+
+        var city=['北京','上海','广州','深圳','成都','西安','福州','厦门','沈阳'];
+
+        // 添加城市
+        function addCity(){
+            var i=0,cityLen=aqiSourceData.size;
+            console.log(cityLen);
+            // for(;i<city.length;i++){
+            //     var option=document.createElement('option');
+            //     option.text=aqiSourceData[i];
+            //     option.setAttribute('value',aqiSourceData[i]);
+            //     citySelect.add(option);
+            // }
         }
 
         var aqiSourceData = {
@@ -94,7 +110,12 @@
          */
         function graTimeChange() {
             // 确定是否选项发生了变化 
-            
+            var i=0,radioLen=gramSelect.length;
+            for(;i<radioLen;i++){
+                if(gramSelect[i].checked){
+                    console.log(gramSelect[i].value);
+                }
+            }
             // 设置对应数据
 
             // 调用图表渲染函数
@@ -140,6 +161,7 @@
          * 初始化函数
          */
         function init() {
+            addCity();
             initGraTimeForm();
             initCitySelector();
             initAqiChartData();
