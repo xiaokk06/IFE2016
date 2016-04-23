@@ -164,9 +164,16 @@
          */
         function citySelectChange() {
             // 确定是否选项发生了变化 
-
+            var i=0,
+            options=citySelect.getElementsByTagName('option');
+            optionLen=options.length;
+            for(;i<optionLen;i++){
+                if (options[i].selected) {
+                    console.log(options[i].value);
+                }
+            }
             // 设置对应数据
-
+            
             // 调用图表渲染函数
         }
 
@@ -174,12 +181,7 @@
          * 初始化日、周、月的radio事件，当点击时，调用函数graTimeChange
          */
         function initGraTimeForm() {
-            // for (var i in timeGram) {
-            //     delegateEvent(timePicker, timeGram[i], 'click', graTimeChange);
-            // }
-            console.log(timeGram);
             delegateEvent(timeGram, 'input', 'click', graTimeChange);
-
         }
 
         /**
@@ -187,9 +189,11 @@
          */
         function initCitySelector() {
             // 读取aqiSourceData中的城市，然后设置id为city-select的下拉列表中的选项
-
+            addAqiCity(aqiSourceData);
             // 给select设置事件，当选项发生变化时调用函数citySelectChange
-
+            // 直接在select上绑定事件即可 没有必要添加事件委托
+            // delegateEvent(citySelect,'option','click',citySelectChange);
+            addEvent(citySelect,'change',citySelectChange);
         }
 
         /**
@@ -204,7 +208,6 @@
          * 初始化函数
          */
         function init() {
-            addAqiCity(aqiSourceData);
             initGraTimeForm();
             initCitySelector();
             initAqiChartData();
