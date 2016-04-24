@@ -97,12 +97,12 @@
                 Num = Math.floor(len / Interval);
             }
             var len = getObjectLen(chartData);
-            console.log(len);
+            // console.log(len);
             var amount = 0,
                 i = 1,
                 j = 1;
             for (var key in chartData) {
-                console.log(chartData[key]);
+                // console.log(chartData[key]);
                 if (i < len) {
                     if (i % Interval !== 0) {
                         amount += chartData[key];
@@ -124,7 +124,7 @@
         // 处理数据
         function dataHandler() {
             chartData = aqiSourceData[pageState.nowSelectCity];
-            console.log(chartData);
+            // console.log(chartData);
             switch (pageState.nowGraTime) {
                 case "day":
                     return chartData;
@@ -245,7 +245,7 @@
                 i = 0;
             var width = wrap.clientWidth;
             chartData = dataHandler();
-            console.log(chartData);
+            // console.log(chartData);
             var len = getObjectLen(chartData);
             // console.log(len);
             // console.log(pageState.nowGraTime);
@@ -266,7 +266,7 @@
                 chooseTime;
             for (; i < radioLen; i++) {
                 if (timePicker[i].checked) {
-                    console.log(timePicker[i].value);
+                    // console.log(timePicker[i].value);
                     chooseTime = timePicker[i].value;
                     // 确定是否选项发生了变化 
                     if (chooseTime === pageState.nowGraTime) {
