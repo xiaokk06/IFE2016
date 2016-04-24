@@ -42,4 +42,14 @@ select::-ms-expand {
     border-radius: 15px;
     box-sizing: border-box;
     overflow: hidden;
+    text-align: center;
+}
+
+.title{
+    margin:10px auto;
+}
+
+.aqi-bar{
+    position: absolute;
+    bottom: 0;
 }

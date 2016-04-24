@@ -53,8 +53,7 @@
             return result;
         }
 
-        var wrap = getElementByClassName("", 'aqi-chart-wrap')[0];
-        // console.log(wrap);
+
         var citySelect = document.getElementById('city-select');
         var timePicker = document.getElementsByTagName('input');
         // console.log(timePicker);
@@ -84,6 +83,43 @@
 
         // var city=['北京','上海','广州','深圳','成都','西安','福州','厦门','沈阳'];
 
+
+        // 处理数据
+        function dataHandler() {
+            var chartData = aqiSourceData[pageState.nowSelectCity];
+            console.log(chartData);
+            switch (pageState.nowGraTime) {
+                case "day":
+                    return chartData;
+                case "week":
+                    var weekData = {};
+                    var len = getObjectLen(chartData);
+                    var weekNum = Math.ceil(len / 7);
+                    var amount = 0,
+                        i = 1,
+                        j = 1;
+                    for (var key in chartData) {
+                        if (i < len) {
+                            if (i % 7 !== 0) {
+                                amount += chartData[key];
+                            } else if (i % 7 === 0) {
+                                weekData['第' + j + '周'] = Math.ceil((amount + chartData[key]) / 7);
+                                amount = 0;
+                                i++;
+                                j++;
+                            }
+                        } else {
+                            weekData['第' + weekNum + '周'] = Math.ceil(amount / 7);
+                        }
+                    }
+                    return weekData;
+                case "month":
+                    var monthData = {};
+                    return monthData;
+            }
+        }
+
+
         // 添加城市
         function addCity() {
             var i = 0,
@@ -98,15 +134,15 @@
 
 
         var aqiSourceData = {
-            "北京": randomBuildData(500),
+            "北京": randomBuildData(400),
             "上海": randomBuildData(300),
             "广州": randomBuildData(200),
             "深圳": randomBuildData(100),
             "成都": randomBuildData(300),
-            "西安": randomBuildData(500),
+            "西安": randomBuildData(400),
             "福州": randomBuildData(100),
             "厦门": randomBuildData(100),
-            "沈阳": randomBuildData(500)
+            "沈阳": randomBuildData(400)
         };
 
         // 添加城市
@@ -131,50 +167,133 @@
 
         // 记录当前页面的表单选项
         var pageState = {
-            nowSelectCity: -1,
+            nowSelectCity: "北京",
             nowGraTime: "day"
         };
+
+        function getObjectLen(obj) {
+            var type = typeof obj;
+            if (type === 'string') {
+                return obj.length;
+            } else if (type === 'object') {
+                var length = 0;
+                for (var i in obj) {
+                    length++;
+                }
+                return length;
+            } else {
+                return false;
+            }
+        }
+
+        function getWidth(width, len) {
+            var posObj = {};
+            posObj.width = Math.floor(width / (len * 2));
+            posObj.left = Math.floor(width / len);
+            posObj.offsetLeft = (width - posObj.left * (len - 1) - posObj.width) / 2;
+            return posObj;
+        }
+
+        function getHintLfeft(posObj, i) {
+            if (posObj.left * i + posObj.offsetLeft + posObj.width / 2 - 60 <= 0) {
+                return 5;
+            } else if (posObj.left * i + posObj.offsetLeft + posObj.width / 2 + 60 >= 1200) {
+                return (posObj.left * i + posObj.offsetLeft + posObj.width / 2 - 110);
+            } else {
+                return (posObj.left * i + posObj.offsetLeft + posObj.width / 2 - 60);
+            }
+        }
+
+        function getTitle() {
+            switch (pageState.nowGraTime) {
+                case "day":
+                    return "每日";
+                case "week":
+                    return "周平均";
+                case "month":
+                    return "月平均";
+            }
+        }
+
+        var colors = ['#3399CC', '#55DDFF', '#3366CC', '#5522FF', '#4499CC', '#66DDFF', '#33FFCC', '#55DDAA', '#1199CC', '#00DDFF'];
 
         /**
          * 渲染图表
          */
         function renderChart() {
-
+            graTimeChange();
+            citySelectChange();
+            var wrap = getElementByClassName("", 'aqi-chart-wrap')[0];
+            // console.log(wrap);
+            var innerHTML = "",
+                i = 0;
+            var width = wrap.clientWidth;
+            chartData=dataHandler();
+            console.log(chartData);
+            var len = getObjectLen(chartData);
+            // console.log(len);
+            // console.log(pageState.nowGraTime);
+            var posObj = getWidth(width, len);
+            innerHTML += "<div class='title'>" + pageState.nowSelectCity + "市01-03月" + getTitle() + "空气质量报告</div>";
+            for (var key in chartData) {
+                innerHTML += "<div class='aqi-bar " + pageState.nowGraTime + "' style='height:" + chartData[key] + "px; width: " + posObj.width + "px; left:" + (posObj.left * i++ + posObj.offsetLeft) + "px; background-color:" + colors[Math.floor(Math.random() * 10)] + "'></div>";
+                // innerHTML += "<div class='aqi-hint' style='bottom: " + (chartData[key] + 10) + "px; left:" + getHintLfeft(posObj, i++) + "px'>" + key + "<br/> [AQI]: " + chartData[key] + "</div>";
+            }
+            wrap.innerHTML = innerHTML;
         }
 
         /**
          * 日、周、月的radio事件点击时的处理函数
          */
         function graTimeChange() {
-            // 确定是否选项发生了变化 
             var i = 0,
-                radioLen = timePicker.length;
+                radioLen = timePicker.length,
+                chooseTime;
             for (; i < radioLen; i++) {
                 if (timePicker[i].checked) {
                     console.log(timePicker[i].value);
+                    chooseTime = timePicker[i].value;
+                    // 确定是否选项发生了变化 
+                    if (chooseTime === pageState.nowGraTime) {
+
+                    } else {
+                        // 设置对应数据
+                        pageState.nowGraTime = chooseTime;
+
+                        // 调用图表渲染函数
+                        renderChart();
+                    }
                 }
             }
-            // 设置对应数据
-
-            // 调用图表渲染函数
         }
 
         /**
          * select发生变化时的处理函数
          */
         function citySelectChange() {
-            // 确定是否选项发生了变化 
-            var i=0,
-            options=citySelect.getElementsByTagName('option');
-            optionLen=options.length;
-            for(;i<optionLen;i++){
+            var i = 0,
+                options = citySelect.getElementsByTagName('option'),
+                chooseCity;
+            optionLen = options.length;
+            for (; i < optionLen; i++) {
                 if (options[i].selected) {
-                    console.log(options[i].value);
+                    // console.log(options[i].value);
+                    // pageState.nowGraTime = options[i].value;
+                    chooseCity = options[i].value;
+                    // 确定是否选项发生了变化 
+                    if (chooseCity === pageState.nowSelectCity) {
+                        // 
+                    } else {
+                        // 设置对应数据
+                        pageState.nowSelectCity = chooseCity;
+                        chartData = aqiSourceData[chooseCity];
+                        // console.log(chartData);
+                        // 调用图表渲染函数
+                        renderChart();
+                    }
                 }
             }
-            // 设置对应数据
-            
-            // 调用图表渲染函数
+
         }
 
         /**
@@ -193,7 +312,7 @@
             // 给select设置事件，当选项发生变化时调用函数citySelectChange
             // 直接在select上绑定事件即可 没有必要添加事件委托
             // delegateEvent(citySelect,'option','click',citySelectChange);
-            addEvent(citySelect,'change',citySelectChange);
+            addEvent(citySelect, 'change', citySelectChange);
         }
 
         /**
@@ -214,6 +333,7 @@
         }
 
         init();
+        renderChart();
 
     };
 })(window);
