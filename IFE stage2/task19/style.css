@@ -1,0 +1,36 @@
+input {
+    border: 1px solid #3399CC;
+    text-indent: 10px;
+    border-radius: 20px;
+    transition: border-radius 0.5s ease-in;
+}
+
+input:focus {
+    border-radius: 0;
+    /*box-shadow: 1px 1px 1px #3399CC, -1px -1px 1px #3399CC;*/
+    transition: border-radius 0.5s ease-in;
+}
+
+button {
+    border-radius: 5px;
+    border: 1px solid #999;
+}
+
+ul {
+    display: block;
+    width: 1200px;
+}
+
+li {
+    background-color: #f00;
+    color: #fff;
+    float: left;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin:0;
+}
+
+li:not(last-of-type) {
+    margin-right: 10px;
+}
