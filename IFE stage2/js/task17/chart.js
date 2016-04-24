@@ -35,6 +35,7 @@
                 if (target && target.tagName === cNode.toUpperCase()) {
                     // console.log("OK");
                     handler.call(target, event);
+
                 }
             });
         }
@@ -84,38 +85,53 @@
         // var city=['北京','上海','广州','深圳','成都','西安','福州','厦门','沈阳'];
 
 
+        function getDataByInterval(Interval) {
+            var Data = {},
+                Num;
+            var mark = "day";
+            if (Interval === 7) {
+                mark = "week";
+                Num = Math.ceil(len / Interval);
+            } else {
+                mark = "month";
+                Num = Math.floor(len / Interval);
+            }
+            var len = getObjectLen(chartData);
+            console.log(len);
+            var amount = 0,
+                i = 1,
+                j = 1;
+            for (var key in chartData) {
+                console.log(chartData[key]);
+                if (i < len) {
+                    if (i % Interval !== 0) {
+                        amount += chartData[key];
+                        i++;
+                    } else if (i % Interval === 0) {
+                        Data[j +'st  '+ mark] = Math.ceil((amount + chartData[key]) / Interval);
+                        amount = 0;
+                        i++;
+                        j++;
+                    }
+                } else {
+                    Data[Num + 'st  ' + mark] = Math.ceil(amount / Interval);
+                }
+            }
+            return Data;
+        }
+
+
         // 处理数据
         function dataHandler() {
-            var chartData = aqiSourceData[pageState.nowSelectCity];
+            chartData = aqiSourceData[pageState.nowSelectCity];
             console.log(chartData);
             switch (pageState.nowGraTime) {
                 case "day":
                     return chartData;
                 case "week":
-                    var weekData = {};
-                    var len = getObjectLen(chartData);
-                    var weekNum = Math.ceil(len / 7);
-                    var amount = 0,
-                        i = 1,
-                        j = 1;
-                    for (var key in chartData) {
-                        if (i < len) {
-                            if (i % 7 !== 0) {
-                                amount += chartData[key];
-                            } else if (i % 7 === 0) {
-                                weekData['第' + j + '周'] = Math.ceil((amount + chartData[key]) / 7);
-                                amount = 0;
-                                i++;
-                                j++;
-                            }
-                        } else {
-                            weekData['第' + weekNum + '周'] = Math.ceil(amount / 7);
-                        }
-                    }
-                    return weekData;
+                    return getDataByInterval(7);
                 case "month":
-                    var monthData = {};
-                    return monthData;
+                    return getDataByInterval(31);
             }
         }
 
@@ -228,7 +244,7 @@
             var innerHTML = "",
                 i = 0;
             var width = wrap.clientWidth;
-            chartData=dataHandler();
+            chartData = dataHandler();
             console.log(chartData);
             var len = getObjectLen(chartData);
             // console.log(len);
@@ -236,8 +252,7 @@
             var posObj = getWidth(width, len);
             innerHTML += "<div class='title'>" + pageState.nowSelectCity + "市01-03月" + getTitle() + "空气质量报告</div>";
             for (var key in chartData) {
-                innerHTML += "<div class='aqi-bar " + pageState.nowGraTime + "' style='height:" + chartData[key] + "px; width: " + posObj.width + "px; left:" + (posObj.left * i++ + posObj.offsetLeft) + "px; background-color:" + colors[Math.floor(Math.random() * 10)] + "'></div>";
-                // innerHTML += "<div class='aqi-hint' style='bottom: " + (chartData[key] + 10) + "px; left:" + getHintLfeft(posObj, i++) + "px'>" + key + "<br/> [AQI]: " + chartData[key] + "</div>";
+                innerHTML += "<div class='aqi-bar " + pageState.nowGraTime + "'title='" + key + " AQI "+chartData[key]+"' style='height:" + chartData[key] + "px; width: " + posObj.width + "px; left:" + (posObj.left * i++ + posObj.offsetLeft) + "px; background-color:" + colors[Math.floor(Math.random() * 10)] + "'></div>";
             }
             wrap.innerHTML = innerHTML;
         }

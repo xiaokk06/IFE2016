@@ -50,6 +50,11 @@ select::-ms-expand {
 }
 
 .aqi-bar{
+    height:0; 
     position: absolute;
     bottom: 0;
+    transition: height 1s linear 0.1s;
+    /*-moz-transition:height 1s linear 0.1s;
+    -o-transition:height 1s linear 0.1s;
+    -webkit-transition:height 1s linear 0.1s;*/
 }
