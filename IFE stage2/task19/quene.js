@@ -145,37 +145,52 @@
             // quene.innerHTML = innerHTML;
         }
 
+        // 这种排序方法有局限性 最小的元素被加在ul末尾 之后调用rightOutQuene会发生错误
+        // function propSort() {
+        //     var liNodes = quene.getElementsByTagName('li'),
+        //         liLen = liNodes.length;
+        //     // console.log(parseInt(maxHeight));
+
+        //     for (; liLen > 0; liLen--) {
+        //         var j = 0;
+        //         var maxHeight = parseInt(liNodes[0].style.height);
+
+        //         for (var i = 1; i < liLen; i++) {
+        //             var nextHeight = parseInt(liNodes[i].style.height);
+
+        //             if (nextHeight > maxHeight) {
+        //                 maxHeight = nextHeight;
+        //                 j = i;
+        //             }
+        //         }
+        //         console.log(j);
+        //         var k = j;
+        //         var Node = liNodes[j++];
+        //         console.log(liNodes[j].style.left);
+        //         for (; j < liLen; j++) {
+        //             liNodes[j].style.left = 25 * (j - 1) + 'px';
+        //         }
+
+        //         quene.removeChild(liNodes[k]);
+        //         quene.appendChild(Node);
+        //         Node.style.left = 25 * (liLen - 1) + 'px';
+        //     }
+        // }
+
         function propSort() {
             var liNodes = quene.getElementsByTagName('li'),
                 liLen = liNodes.length;
-            // console.log(parseInt(maxHeight));
-
-
             for (; liLen > 0; liLen--) {
-                var j = 0;
-                var maxHeight = parseInt(liNodes[0].style.height);
-
-                for (var i = 1; i < liLen; i++) {
-                    var nextHeight = parseInt(liNodes[i].style.height);
-
-                    if (nextHeight > maxHeight) {
-                        maxHeight = nextHeight;
-                        j = i;
+                    for (var j = 0; j < liLen - 1; j++) {
+                        if (parseInt(liNodes[j].style.height) > parseInt(liNodes[j + 1].style.height)) {
+                            var arg = liNodes[j + 1].style.height;
+                            liNodes[j + 1].style.height = liNodes[j].style.height;
+                            liNodes[j].style.height = arg;
+                        }
                     }
-                }
-                console.log(j);
-                var k=j;
-                var Node = liNodes[j++];
-                console.log(liNodes[j].style.left);
-                for (; j < liLen; j++) {
-                    liNodes[j].style.left = 25 * (j - 1) + 'px';
-                }
-
-                quene.removeChild(liNodes[k]);
-                quene.appendChild(Node);
-                Node.style.left = 25 * (liLen - 1) + 'px';
             }
         }
+
 
         addEvent(leftIn, 'click', leftInQuene);
         addEvent(rightIn, 'click', rightInQuene);
