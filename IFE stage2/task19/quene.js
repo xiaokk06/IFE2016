@@ -25,8 +25,8 @@
             leftOut = document.getElementById('leftOut'),
             rightOut = document.getElementById('rightOut'),
             Data = document.getElementById('Data'),
-            randomData=document.getElementById('random'),
-            sortData=document.getElementById('sort'),
+            randomData = document.getElementById('random'),
+            sortData = document.getElementById('sort'),
             quene = document.getElementById('quene');
 
 
@@ -66,7 +66,7 @@
                 // newLi.innerHTML = inputVal;
                 newLi.style.height = inputVal * 3 + 'px';
                 newLi.style.left = '0';
-                newLi.style.backgroundColor=colors[Math.floor(Math.random() * 10)];
+                newLi.style.backgroundColor = colors[Math.floor(Math.random() * 10)];
                 var cNode = quene.getElementsByTagName('li'),
                     cLen = cNode.length;
                 // console.log(cNode);
@@ -90,7 +90,7 @@
                     cLen = cNode.length;
                 newLi.style.height = inputVal * 3 + 'px';
                 newLi.style.left = 25 * cLen + 'px';
-                newLi.style.backgroundColor=colors[Math.floor(Math.random() * 10)];
+                newLi.style.backgroundColor = colors[Math.floor(Math.random() * 10)];
                 quene.appendChild(newLi);
                 Data.value = "";
             }
@@ -127,20 +127,61 @@
 
         var colors = ['#3399CC', '#55DDFF', '#3366CC', '#5522FF', '#4499CC', '#66DDFF', '#33FFCC', '#55DDAA', '#1199CC', '#00DDFF'];
 
-        function randCreate(){
-            var innerHTML="";
-            quene.innerHTML="";
-            for(var i=0;i<20;i++){
-                var Num=Math.ceil(Math.random()*100);
-                innerHTML += "<li style='height:" + Num*3 + "px; width: 20px; left:" + (25 * i) + "px; background-color:" + colors[Math.floor(Math.random() * 10)] + "'></li>";
+        // random create data
+        function randCreate() {
+            // var innerHTML = "";
+            quene.innerHTML = "";
+            for (var i = 0; i < 20; i++) {
+                var Num = Math.ceil(Math.random() * 100);
+                var newLi = document.createElement('li');
+                var liStyle = newLi.style;
+                liStyle.left = 25 * i + 'px';
+                liStyle.height = Num * 3 + 'px';
+                liStyle.backgroundColor = colors[Math.floor(Math.random() * 10)];
+                quene.appendChild(newLi);
+
+                // innerHTML += "<li style='height:" + Num * 3 + "px; width: 20px;  background-color:" + colors[Math.floor(Math.random() * 10)] + "'></li>";
             }
-            quene.innerHTML=innerHTML;
+            // quene.innerHTML = innerHTML;
+        }
+
+        function propSort() {
+            var liNodes = quene.getElementsByTagName('li'),
+                liLen = liNodes.length;
+            // console.log(parseInt(maxHeight));
+
+
+            for (; liLen > 0; liLen--) {
+                var j = 0;
+                var maxHeight = parseInt(liNodes[0].style.height);
+
+                for (var i = 1; i < liLen; i++) {
+                    var nextHeight = parseInt(liNodes[i].style.height);
+
+                    if (nextHeight > maxHeight) {
+                        maxHeight = nextHeight;
+                        j = i;
+                    }
+                }
+                console.log(j);
+                var k=j;
+                var Node = liNodes[j++];
+                console.log(liNodes[j].style.left);
+                for (; j < liLen; j++) {
+                    liNodes[j].style.left = 25 * (j - 1) + 'px';
+                }
+
+                quene.removeChild(liNodes[k]);
+                quene.appendChild(Node);
+                Node.style.left = 25 * (liLen - 1) + 'px';
+            }
         }
 
         addEvent(leftIn, 'click', leftInQuene);
         addEvent(rightIn, 'click', rightInQuene);
         addEvent(rightOut, 'click', rightOutQuene);
         addEvent(leftOut, 'click', leftOutQuene);
-        addEvent(randomData,'click',randCreate);
+        addEvent(randomData, 'click', randCreate);
+        addEvent(sortData, 'click', propSort);
     };
 })(window);
