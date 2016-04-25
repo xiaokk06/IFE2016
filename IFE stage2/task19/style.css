@@ -17,20 +17,34 @@ button {
 }
 
 ul {
+    position: absolute;
     display: block;
-    width: 1200px;
+    /*width: 1200px;*/
+    height: 300px;
 }
 
 li {
-    background-color: #f00;
+    /*background-color: #3399CC;*/
     color: #fff;
     float: left;
     display: inline-block;
-    height: 30px;
-    line-height: 30px;
     margin:0;
+    width: 20px;
+    position: absolute;
+    bottom: 0;
+    animation: heightAnim .6s ease-in-out;
 }
 
 li:not(last-of-type) {
-    margin-right: 10px;
+    margin-right: 5px;
+}
+
+@keyframes heightAnim {
+    0% {
+        bottom: -300px;
+    }
+    100% {
+        bottom: 0;
+    }
+
 }

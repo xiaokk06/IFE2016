@@ -17,9 +17,6 @@
         }
     }
 
-    function getPos(width,len){
-        
-    }
 
     window.onload = function() {
         // get the elements
@@ -28,6 +25,8 @@
             leftOut = document.getElementById('leftOut'),
             rightOut = document.getElementById('rightOut'),
             Data = document.getElementById('Data'),
+            randomData=document.getElementById('random'),
+            sortData=document.getElementById('sort'),
             quene = document.getElementById('quene');
 
 
@@ -38,14 +37,22 @@
             var trimStr = trim(val);
             // console.log(trimStr);
             if (trimStr) {
-                if (/^[0-9]*$/.test(trimStr)) {
-                    return trimStr;
+                if (parseInt(trimStr) <= 100 && parseInt(trimStr) > 0) {
+                    if (/^[0-9]+$/.test(trimStr)) {
+                        return parseInt(trimStr);
+                    } else {
+                        alert("your input is not suitable , please try again");
+                        Data.value = "";
+                        return false;
+                    }
                 } else {
-                    alert("your input is not suitable , please try again");
+                    alert("please input a num between 0 and 100");
+                    Data.value = "";
                     return false;
                 }
             } else {
                 alert("please input a num!");
+                Data.value = "";
                 return false;
             }
         }
@@ -56,7 +63,18 @@
             var inputVal = checkInput();
             if (inputVal) {
                 var newLi = document.createElement('li');
-                newLi.innerHTML = inputVal;
+                // newLi.innerHTML = inputVal;
+                newLi.style.height = inputVal * 3 + 'px';
+                newLi.style.left = '0';
+                newLi.style.backgroundColor=colors[Math.floor(Math.random() * 10)];
+                var cNode = quene.getElementsByTagName('li'),
+                    cLen = cNode.length;
+                // console.log(cNode);
+                if (cLen > 0) {
+                    for (var i = 0; i < cLen; i++) {
+                        cNode[i].style.left = 25 * (i + 1) + 'px';
+                    }
+                }
                 quene.insertBefore(newLi, quene.childNodes[0]);
                 Data.value = "";
             }
@@ -67,7 +85,12 @@
             var inputVal = checkInput();
             if (inputVal) {
                 var newLi = document.createElement('li');
-                newLi.innerHTML = inputVal;
+                // newLi.innerHTML = inputVal;
+                var cNode = quene.getElementsByTagName('li'),
+                    cLen = cNode.length;
+                newLi.style.height = inputVal * 3 + 'px';
+                newLi.style.left = 25 * cLen + 'px';
+                newLi.style.backgroundColor=colors[Math.floor(Math.random() * 10)];
                 quene.appendChild(newLi);
                 Data.value = "";
             }
@@ -91,17 +114,33 @@
             }
         }
 
-        function leftOutQuene(){
+        function leftOutQuene() {
             if (checkUlEmpty()) {
+                quene.removeChild(quene.getElementsByTagName('li')[0]);
                 var liNodes = quene.getElementsByTagName('li'),
                     liLen = liNodes.length;
-                quene.removeChild(liNodes[0]);
+                for (var i = 0; i < liLen; i++) {
+                    liNodes[i].style.left = 25 * i + 'px';
+                }
             }
+        }
+
+        var colors = ['#3399CC', '#55DDFF', '#3366CC', '#5522FF', '#4499CC', '#66DDFF', '#33FFCC', '#55DDAA', '#1199CC', '#00DDFF'];
+
+        function randCreate(){
+            var innerHTML="";
+            quene.innerHTML="";
+            for(var i=0;i<20;i++){
+                var Num=Math.ceil(Math.random()*100);
+                innerHTML += "<li style='height:" + Num*3 + "px; width: 20px; left:" + (25 * i) + "px; background-color:" + colors[Math.floor(Math.random() * 10)] + "'></li>";
+            }
+            quene.innerHTML=innerHTML;
         }
 
         addEvent(leftIn, 'click', leftInQuene);
         addEvent(rightIn, 'click', rightInQuene);
         addEvent(rightOut, 'click', rightOutQuene);
-        addEvent(leftOut,'click',leftOutQuene);
+        addEvent(leftOut, 'click', leftOutQuene);
+        addEvent(randomData,'click',randCreate);
     };
 })(window);
