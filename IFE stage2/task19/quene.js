@@ -180,14 +180,17 @@
         function propSort() {
             var liNodes = quene.getElementsByTagName('li'),
                 liLen = liNodes.length;
+
             for (; liLen > 0; liLen--) {
-                    for (var j = 0; j < liLen - 1; j++) {
-                        if (parseInt(liNodes[j].style.height) > parseInt(liNodes[j + 1].style.height)) {
-                            var arg = liNodes[j + 1].style.height;
-                            liNodes[j + 1].style.height = liNodes[j].style.height;
-                            liNodes[j].style.height = arg;
-                        }
+                for (var j = 0; j < liLen - 1; j++) {
+                    if (parseInt(liNodes[j].style.height) > parseInt(liNodes[j + 1].style.height)) {
+                        var arg = liNodes[j + 1].style.height;
+                        liNodes[j + 1].style.height = liNodes[j].style.height;
+                        liNodes[j].style.height = arg;
                     }
+
+                }
+
             }
         }
 
