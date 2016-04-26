@@ -180,8 +180,9 @@
         function propSort() {
             var liNodes = quene.getElementsByTagName('li'),
                 liLen = liNodes.length;
-        
-                for (; liLen > 0; liLen--) {
+                //这里实际就是使用setTimeout来为之后的arguments.callee能够调用提供方法，可以使用方法来替代
+            setTimeout(function() {
+                if (liLen > 0) {
                     for (var j = 0; j < liLen - 1; j++) {
                         if (parseInt(liNodes[j].style.height) > parseInt(liNodes[j + 1].style.height)) {
                             var arg = liNodes[j + 1].style.height;
@@ -189,7 +190,11 @@
                             liNodes[j].style.height = arg;
                         }
                     }
+                    liLen--;
+                    setTimeout(arguments.callee, 300);
                 }
+            }, 10);
+
         }
 
 
