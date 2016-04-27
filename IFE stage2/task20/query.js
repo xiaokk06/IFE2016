@@ -9,6 +9,10 @@
 			Input.style.width=200+'px';
 		}
 
+		function insertData(){
+			
+		}
+
 		init();
 	};
 })(window);
