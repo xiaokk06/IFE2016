@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>task 20</title>
+    <meta charset="UTF-8">
+    <title>task 20</title>
+    <style>
+    #wrap {
+        display: flex;
+    }
+    
+    #wrap div {
+        background-color: pink;
+        color: white;
+        margin-right: 10px;
+        display: inline-block;
+    }
+    /*.newElement:not(:last-of-type){
+			margin-right: 0;
+		}*/
+    
+    .select {
+    	background-color: #f00fff;
+    	color: #f00;
+    }
+    </style>
 </head>
+
 <body>
-	<textarea name="mutipleInput" id="inputData" cols="30" rows="10"></textarea>
-	<button id="insert">插入数据</button>
-	<input type="text" id="keyword">
-	<button id="query">查询</button>
-	<script src="query.js"></script>
+    <textarea name="mutipleInput" id="inputData" cols="30" rows="10"></textarea>
+    <button id="insert">插入数据</button>
+    <input type="text" id="keyword">
+    <button id="query">查询</button>
+    <div id="wrap"></div>
+    <script src="query.js"></script>
 </body>
+
 </html>
