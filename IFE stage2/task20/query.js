@@ -39,22 +39,25 @@
 
         }
 
-        function loopInsert(arr) {
-            var arrLen = arr.length,
-                i = 0,
-                innerHTML = "";
-            console.log(arrLen);
-            for (; i < arrLen; i++) {
-                innerHTML += "<div class='newElement'>" + arr[i] + "</div>";
-            }
-            wrap.innerHTML += innerHTML;
-        }
+        // 可以实现添加数据但是没有足够简洁
+        // function loopInsert(arr) {
+        //     var arrLen = arr.length,
+        //         i = 0,
+        //         innerHTML = "";
+        //     console.log(arrLen);
+        //     for (; i < arrLen; i++) {
+        //         innerHTML += "<div class='newElement'>" + arr[i] + "</div>";
+        //     }
+        //     wrap.innerHTML += innerHTML;
+        // }
 
         function search() {
             var word = keyword.value.trim();
             render(word);
         }
 
+        // 当传入参数为空时可以直接进行数据的添加 当传入参数为查询字符串时可以通过map方法来对每一项
+        // 进行查询 然后将匹配项替换为高亮标记的文本
         function render(str) {
             wrap.innerHTML = resultArray.map(function(d) {
                 if (str != null && str.length > 0) {
