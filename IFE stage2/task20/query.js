@@ -71,6 +71,7 @@
             console.log(word);
             // 
             console.log(word == null);
+            console.log(word==undefined);
             console.log(word === null);
             render(word);
         }
