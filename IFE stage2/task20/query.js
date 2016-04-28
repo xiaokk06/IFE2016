@@ -50,7 +50,7 @@
 
             render();
 
-            Input.value="";
+            Input.value = "";
 
         }
 
@@ -70,17 +70,21 @@
             var word = keyword.value.trim();
             console.log(word);
             // 
-            console.log(word==null);
-            console.log(word===null);
+            console.log(word == null);
+            console.log(word === null);
             render(word);
         }
 
         // 当传入参数为空时可以直接进行数据的添加 当传入参数为查询字符串时可以通过map方法来对每一项
         // 进行查询 然后将匹配项替换为高亮标记的文本
         function render(str) {
+        	console.log(str);
             wrap.innerHTML = resultArray.map(function(d) {
-            	// 这里如果
-                if (str != null && str.length > 0) {
+                // 这里如果不传入参数 则str为未定义 
+                // 此时如果判断语句是str!===null就会报错TypeError str is undefined
+                // 用不严格不等就不会报错 因为非严格模式下null==undefined
+                // 所以判断语句使用str!===undefined即可
+                if (str !== null && str.length > 0) {
                     d = d.replace(new RegExp(str, "g"), "<span class='select'>" + str + "</span>");
                 }
                 return '<div>' + d + '</div>';
