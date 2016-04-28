@@ -69,6 +69,7 @@
         function search() {
             var word = keyword.value.trim();
             console.log(word);
+            // 
             console.log(word==null);
             console.log(word===null);
             render(word);
