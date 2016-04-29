@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>task 21</title>
+    <style>
+    *{
+        font-size: 24px;
+    }
+    .autoInsert,.craftInsert{
+        display: flex;
+        margin:20px;
+    }
+    lable{
+        margin-right: 20px;
+    }
+    textarea,button{
+        display: block;
+    }
+    .wrap{
+        margin:20px;
+    }
+    .autoTag,.crTag,.deleteTag{
+        color: #ffffff;
+    }
+    .auTag{
+        background-color: #88C3FB;
+    }
+    .crTag {
+        margin-right: 10px;
+        display: inline-block;
+        background-color: #FBCB83;
+    }
+    .deleteTag{
+        background-color: #FD0000;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="autoInsert">
+        <label for="tag">Tag:</label>
+        <input type="text" id="tag">
+    </div>
+    <div class="wrap autoTag"></div>
+    <div class="craftInsert">
+        <textarea name="mutipleInput" id="inputData" cols="30" rows="10"></textarea>
+        <button id="insert">确认兴趣爱好</button>
+    </div>
+    <div class="wrap craftTag"></div>
+    <script src="query.js"></script>
+</body>
+
+</html>
