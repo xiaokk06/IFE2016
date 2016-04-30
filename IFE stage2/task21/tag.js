@@ -16,12 +16,22 @@
     window.onload = function() {
         var Input = document.getElementById("inputData"),
             insert = document.getElementById('insert'),
-            craftWrap=document.querySelector('.craftTag');
-            console.log(craftWrap);
+            // wrap=document.querySelector('.wrap'),
+            craftWrap = document.querySelector('.craftTag');
+        // test querySelector function
+        // console.log(craftWrap);
+
+        // console.log($('.wrap'));
 
         function init() {
-            Input.style.height = 60 + 'px';
-            Input.style.width = 200 + 'px';
+            Input.style.height = 100 + 'px';
+            Input.style.width = 240 + 'px';
+        }
+
+        // seal the querySelector function as a tool
+        function $(tag) {
+            // 返回当前文档中第一个匹配特定选择器的元素（使用深度优先，前序遍历规则遍历所有文档节点）
+            return document.querySelector(tag);
         }
 
         // addEvent
@@ -35,6 +45,17 @@
             }
         }
 
+        // delegate Event
+        function delegateEvent(oParent, oChild, type, handler) {
+            addEvent(oParent, type, function() {
+                var event = arguments[0] || window.event;
+                target = event.target || event.srcElement;
+                if (target && target.tagName == oChild.toUpperCase()) {
+                    handler.call(target, event);
+                }
+            });
+        }
+
         var resultArray = [];
 
 
@@ -43,17 +64,25 @@
             // 多个分隔符使用正则表达式即可 中括号内直接写
             // 换行\n tab\t \,\，分别为英文和中文的逗号 即半角和全角 空格可以直接用空格表示
             resultArray = Data.split(/[ ,\n.\，、\t\ ]/);
-            console.log(resultArray);
+            // console.log(resultArray);
             // loopInsert(resultArray);
-            craftWrap.innerHTML=resultArray.map(function(item) {
-                return "<div class='crTag'>"+item+"</div>";
+            craftWrap.innerHTML = resultArray.map(function(item) {
+                return "<div class='crTag'>" + item + "</div>";
             }).join('');
-
             Input.value = "";
-
         }
 
+        function removeTag(){
+            console.log(this.parentNode);
+            this.parentNode.removeChild(this);
+        }
+
+
+
         addEvent(insert, 'click', insertData);
+
+        delegateEvent($('.craftTag'),'div','click',removeTag);
+
 
         init();
     };

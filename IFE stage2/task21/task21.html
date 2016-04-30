@@ -5,35 +5,83 @@
     <meta charset="UTF-8">
     <title>task 21</title>
     <style>
-    *{
+    * {
         font-size: 24px;
     }
-    .autoInsert,.craftInsert{
-        display: flex;
-        margin:20px;
+    
+    .autoInsert,
+    .craftInsert {
+        display: block;
+        margin: 20px;
     }
-    lable{
+    
+    .autoTag,
+    .craftTag {
+        display: flex;
+    }
+    
+    lable {
         margin-right: 20px;
     }
-    textarea,button{
+    
+    textarea,
+    button {
+        border: 1px solid #999;
+        border-radius: 5px;
         display: block;
+        font-size: 18px;
     }
-    .wrap{
-        margin:20px;
+    
+    button {
+        margin-top: 5px;
+        cursor: pointer;
     }
-    .autoTag,.crTag,.deleteTag{
+    
+    button:hover {
+        color: #fff;
+        background-color: #3399FF;
+    }
+    
+    #tag {
+        border: 1px solid #999;
+        border-radius: 5px;
+    }
+    
+    #tag:focus {
+        box-shadow: 1px 1px 2px 2px #3399CC, -1px -1px 2px 2px #3399CC;
+    }
+    
+    .wrap {
+        margin: 20px;
+    }
+    
+    .autoTag,
+    .crTag,
+    .deleteTag {
+        display: inline-block;
         color: #ffffff;
+        cursor: pointer;
     }
-    .auTag{
+
+    .crTag:hover{
+        background-color: #FD0000;
+    }
+    
+    .crTag:hover::before {
+        content: '点击移除';
+    }
+    
+    .auTag {
         background-color: #88C3FB;
     }
+    
     .crTag {
         margin-right: 10px;
-        display: inline-block;
         background-color: #FBCB83;
     }
-    .deleteTag{
-        background-color: #FD0000;
+    
+    .deleteTag {
+        /*background-color: #FD0000;*/
     }
     </style>
 </head>
@@ -49,7 +97,7 @@
         <button id="insert">确认兴趣爱好</button>
     </div>
     <div class="wrap craftTag"></div>
-    <script src="query.js"></script>
+    <script src="tag.js"></script>
 </body>
 
 </html>
