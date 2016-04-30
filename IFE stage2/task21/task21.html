@@ -55,19 +55,22 @@
         margin: 20px;
     }
     
-    .autoTag,
-    .crTag,
-    .deleteTag {
+    .auTag,
+    .crTag
+    {
         display: inline-block;
         color: #ffffff;
         cursor: pointer;
+        margin-right: 10px;
     }
-
-    .crTag:hover{
+    
+    .crTag:hover,
+    .auTag:hover {
         background-color: #FD0000;
     }
     
-    .crTag:hover::before {
+    .crTag:hover::before,
+    .auTag:hover::before {
         content: '点击移除';
     }
     
@@ -76,12 +79,7 @@
     }
     
     .crTag {
-        margin-right: 10px;
         background-color: #FBCB83;
-    }
-    
-    .deleteTag {
-        /*background-color: #FD0000;*/
     }
     </style>
 </head>

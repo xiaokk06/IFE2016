@@ -1,17 +1,4 @@
-// 因为 ecmascript 执行JS代码是从里到外，因此把全局变量window或jQuery对象传进来，
-// 就避免了到外层去寻找，提高效率。undefined在老一辈的浏览器是不被支持的，直接使用会报错，
-// js框架要考虑到兼容性，因此增加一个形参undefined。
-// 还有，不要用window.undefined传递给形参，有可能window.undefined被其他人修改了，
-// 最好就是甚么都不传，形参的undefined就是真正的undefined了
-// 在Ecmascript 3中，undefined是可变的，不是关键字，这意味着它的值可以被覆盖或者重新赋值。
-// 如undefined = true。值得庆幸的是在ECMASCRIPT 5严格模式（’use strict';）中解析器将抛出一个类型错误。
-// 因此我们需要保护我们的undefined,
-// var undefined = 8;  
-// (function( window ) {   
-//     alert(window.undefined); // 8  
-//     alert(undefined); // 8  
-// })(window);  
-// 以上代码就可以修改window.undefined从而导致访问不到真正的undefined
+// 传入window
 (function(window, undefined) {
     window.onload = function() {
         var Input = document.getElementById("inputData"),
@@ -20,7 +7,6 @@
             craftWrap = document.querySelector('.craftTag');
         // test querySelector function
         // console.log(craftWrap);
-
         // console.log($('.wrap'));
 
         function init() {
@@ -56,14 +42,51 @@
             });
         }
 
-        var resultArray = [];
+        var resultArray = [],
+            tagObj = [];
+
+        function getCurElements(element){
+            tagObj = [];
+            var auTags=element.getElementsByTagName('div'),len=auTags.length;
+            for(var i=0;i<len;i++){
+                tagObj.push(auTags[i].innerHTML);
+            }
+            return tagObj;
+        }
+
+
+        function autoInsert(event) {
+            // console.log(event);
+            var autoData = $('#tag').value;
+            if (/[,，;；、\s\n]+/.test(autoData) || event.keyCode == 13) {
+                var data = autoData.split(/[ ,\n\，、\s;；.。]/),
+                    newTag = data[0],
+                    tagObj=getCurElements($('.autoTag'));
+                if (tagObj.indexOf(newTag) === -1) {
+                    tagObj.push(newTag);
+                    if (tagObj.length > 10) {
+                        tagObj.shift();
+                    }
+                }
+                $('.autoTag').innerHTML = tagObj.map(function(item) {
+                    return "<div class='auTag'>" + item + "</div>";
+                }).join('');
+                $('#tag').value = "";
+            }
+        }
 
 
         function insertData() {
             var Data = Input.value.trim();
             // 多个分隔符使用正则表达式即可 中括号内直接写
             // 换行\n tab\t \,\，分别为英文和中文的逗号 即半角和全角 空格可以直接用空格表示
-            resultArray = Data.split(/[ ,\n.\，、\t\ ]/);
+            var data = Data.split(/[ ,\n.\，、\t\ ]/),len=data.length;
+            resultArray=getCurElements($('.craftTag'));
+            for(var i=0;i<len;i++){
+                if(resultArray.indexOf(data[i])===-1){
+                    resultArray.push(data[i]);
+                }
+            }
             // console.log(resultArray);
             // loopInsert(resultArray);
             craftWrap.innerHTML = resultArray.map(function(item) {
@@ -72,16 +95,18 @@
             Input.value = "";
         }
 
-        function removeTag(){
-            console.log(this.parentNode);
+        function removeTag() {
+            // console.log(this.parentNode);
             this.parentNode.removeChild(this);
         }
 
 
 
         addEvent(insert, 'click', insertData);
+        addEvent($('#tag'),'keyup',autoInsert);
+        delegateEvent($('.craftTag'), 'div', 'click', removeTag);
+        delegateEvent($('.autoTag'), 'div', 'click', removeTag);
 
-        delegateEvent($('.craftTag'),'div','click',removeTag);
 
 
         init();
