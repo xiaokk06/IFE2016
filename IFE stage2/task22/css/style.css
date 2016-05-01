@@ -8,7 +8,7 @@ div {
 
 .main {
   margin: 100px auto 0 auto;
-  width: 1000;
+  width: 1000px;
   display: flex;
   height: 300px; }
   .main div div div {
