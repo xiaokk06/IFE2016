@@ -1,0 +1,43 @@
+div {
+    margin: 20px;
+    border: 1px solid #999;
+}
+
+.divStyle {
+    flex: 1 1 0;
+    display: flex;
+}
+
+.main {
+    margin: 100px auto 0 auto;
+    width: 1000;
+    display: flex;
+    height: 300px;
+    div {
+        @extend .divStyle;
+        div {
+            @extend .divStyle;
+            div {
+                @extend .divStyle;
+                margin: 10px;
+            }
+        }
+    }
+}
+
+button {
+	cursor:pointer;
+	font-weight:600;
+	margin-top:10px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+    display: inline-block;
+    &:not(:last-of-type) {
+        margin-right: 100px;
+    }
+    &:first-of-type{
+    	margin-left:200px;
+    }
+}
