@@ -18,12 +18,47 @@
 
         var nodeList = [],
             treeRoot = $('.main'),
-            timer = null;
+            lock = false,
+            timer = 300;
 
-        function deepSearch(node){
-        	if(node!==null){
-        		
-        	}
+        function deepSearch() {
+            var stack = [];
+            (function recurse(currentNode) {
+                if (currentNode !== null) {
+                    stack.push(currentNode);
+                    for (var i = 0; i < currentNode.children.length; i++) {
+                        recurse(currentNode.children[i]);
+                        // arguments.callee(currentNode.children[i]);
+                    }
+                    // callback ? callback(currentNode) : null;
+                }
+            })(treeRoot);
+            nodeList = stack;
         }
+
+        // animation function
+        function animation(nodeList, keyword) {
+            lock = true;
+            var keyword = keyword || null;
+            (function show() {
+                var next = nodeList.shift();
+                if (next) {
+                    next.style.backgroundColor = "#3399CC";
+                    setTimeout(function() {
+                        if (!(next.firstChild.nodeValue.trim() == keyword)) {
+                            next.style.backgroundColor = '#fff';
+                            show();
+                        }
+                    }, timer);
+                } else {
+                    lock = false;
+                }
+            })();
+        }
+
+        addEvent($('.deepSearch'), 'click', function() {
+            deepSearch();
+            animation(nodeList);
+        })
     }
 }(window));
