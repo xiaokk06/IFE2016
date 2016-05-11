@@ -77,8 +77,6 @@
             }
         }
 
-        console.log($('.first'));
-
         addEvent($('.first'), 'click', function() {
             reset();
             preOrder(treeRoot);
