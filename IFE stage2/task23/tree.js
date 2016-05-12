@@ -38,9 +38,34 @@
             nodeList = stack;
         }
 
+        function Treewalker() {
+            // not necessary
+            var filter = function(node) {
+                return node.tagName.toLowerCase() === 'div' ?
+                    NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+            };
+            var walker = document.createTreeWalker(treeRoot, NodeFilter.SHOW_ELEMENT, filter, false);
+            var node = walker.nextNode();
+            while (node !== null) {
+                //put the tag into a stack
+                nodeList.push(node);
+                node = walker.nextNode();
+            }
+        }
+
+        function NodeIterator() {
+            var iterator = document.createNodeIterator(treeRoot, NodeFilter.SHOW_ELEMENT, null, false);
+            var node = iterator.nextNode();
+            while (node !== null) {
+                //put the tag into a stack
+                nodeList.push(node);
+                node = iterator.nextNode();
+            }
+        }
+
         // wide search
         function wideSearch() {
-        	reset();
+            reset();
             // need a queue to store parentNode
             // so that other childNode can be pushed into the nodeList stack
             var queue = [],
@@ -60,7 +85,7 @@
 
         // animation function
         function animation(nodeList, keyword) {
-        	reset();
+            reset();
             lock = true;
             var keyword = keyword || null;
             (function show() {
@@ -93,22 +118,54 @@
         }
 
         addEvent($('.deepSearch'), 'click', function() {
-            deepSearch();
-            animation(nodeList);
+            console.log(lock);
+            if (lock) {
+                alert("Searching now!");
+                return;
+            } else {
+                var supportsTraversals = document.implementation.hasFeature('Traversals', '2.0');
+                var supportNodeIterator = (typeof document.createNodeIterator === 'function');
+                var supportTreeWalker = (typeof document.createTreeWalker === 'function');
+                // console.log(supportsTraversals);
+                // console.log(supportNodeIterator);
+                // console.log(supportTreeWalker);
+                if (supportsTraversals) {
+                    if (supportTreeWalker) {
+                        Treewalker();
+                    } else if (supportNodeIterator) {
+                        NodeIterator();
+                    } else {
+                        deepSearch();
+                    }
+                } else {
+                    deepSearch();
+                }
+                animation(nodeList);
+            }
         });
 
         addEvent($('.wideSearch'), 'click', function() {
-            wideSearch();
-            animation(nodeList);
+            if (lock) {
+                alert("Searching now!");
+                return;
+            } else {
+                wideSearch();
+                animation(nodeList);
+            }
         });
 
         addEvent($('.query'), 'click', function() {
-            var keyword = checkInput();
-            if (keyword) {
-                deepSearch();
-                animation(nodeList, keyword);
+            if (lock) {
+                alert("Searching now!");
+                return;
             } else {
-                alert("No Found!");
+                var keyword = checkInput();
+                if (keyword) {
+                    deepSearch();
+                    animation(nodeList, keyword);
+                } else {
+                    alert("No Found!");
+                }
             }
         })
     }
