@@ -7,15 +7,15 @@ div {
 
 .main {
   margin-top: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 1200px;
   display: flex;
-  height: 300px; }
+  height: 150px;
+  padding: 0 5px;
+  justify-content: space-around; }
   .main div {
-    flex: 1 1 0;
     display: flex;
-    padding: 3px; }
+    padding: 4px;
+    flex: 1 1 0;
+    justify-content: space-around; }
 
 button {
   margin-top: 10px;
@@ -26,9 +26,10 @@ button {
   button:not(:last-of-type) {
     margin-right: 30px; }
   button:first-of-type {
-    margin-left: 70px; }
+    margin-left: 50px; }
 
-.keyword {
+.keyword,
+.content {
   border: 1px solid #999;
   line-height: 40px;
   text-indent: 5px;

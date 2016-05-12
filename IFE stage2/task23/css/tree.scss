@@ -8,19 +8,19 @@ div {
 }
 
 .main {
+    // margin: 100px 50px 0 50px;
     margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 1200px;
     display: flex;
-    height: 300px;
+    height: 150px;
+    padding: 0 5px;
+    justify-content: space-around;
     div {
-        flex: 1 1 0;
         display: flex;
-        padding: 3px;
+        padding: 4px;
+        flex: 1 1 0;
+        justify-content: space-around;
     }
 }
-
 button {
     margin-top: 10px;
     cursor: pointer;
@@ -38,7 +38,6 @@ button {
     // 一个元素的高度是由line-height撑开的
     // line-height通过line-boxes体现高度
     // line-boxes的高度由每一个inline-box构成
-
     // line boxes所占据的高度是多少（无论比文字大还是比文字小）
     // 其占据的空间都是与文字内容公用水平中垂线的
     // 这也就是为什么高度设置为40px之后文字并没有产生位移反而是box高度变小导致文字不居中显示
@@ -47,12 +46,13 @@ button {
     &:not(:last-of-type) {
         margin-right: 30px;
     }
+    
     &:first-of-type {
-        margin-left: 70px;
+        margin-left: 50px;
     }
 }
-
-.keyword {
+.keyword,
+.content {
     border: 1px solid #999;
     // 这里的height也是可要可不要的
     // input同样也是内联元素
@@ -60,5 +60,5 @@ button {
     // 含padding值得input高度为42px 和button等高
     // padding: 0;
     text-indent: 5px;
-    margin-right:10px;
+    margin-right: 10px;
 }
