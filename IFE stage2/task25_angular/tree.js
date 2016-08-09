@@ -1,9 +1,7 @@
 var tree = angular.module('tree', []);
-tree.controller('root', ['$scope', function($scope) {
+tree.controller('rootNode', ['$scope', function($scope) {
     $scope.name = '前端攻城狮';
 }]);
-
-
 
 tree.controller('queryNode', ['$scope', function($scope) {
     $scope.queryNode = function() {
@@ -19,3 +17,9 @@ tree.controller('queryNode', ['$scope', function($scope) {
 
     }
 }]);
+
+tree.controller('initNode',['$scope',function($scope){
+    $scope.nodes=['html','css','javascript','nodeJs'];
+}]);
+
+

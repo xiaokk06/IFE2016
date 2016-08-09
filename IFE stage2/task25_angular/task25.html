@@ -18,15 +18,13 @@
         <p id="result"></p>
         <div id="tree-area">
             <div class="nodebody-visible">
-                <label class="node-header" ng-controller="root">
+                <label class="node-header" ng-controller="rootNode">
                     <div class="arrow empty-arrow"></div>
                     <span class="node-title">{{name}}</span>
-                    <span>&nbsp;&nbsp;</span>
                     <img class="addIcon" src="images/add.png">
                 </label>
-                <ul>
-                    
-                </ul>
+                <div ng-controller='initNode'>
+                </div>
             </div>
         </div>
     </fieldset>
