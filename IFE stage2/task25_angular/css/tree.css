@@ -1,5 +1,6 @@
-.d-ib {
-    display: inline-block;
+span {
+    margin: 0;
+    padding: 0;
 }
 
 #tree-module {
@@ -11,14 +12,34 @@
     border-radius: 5px;
 }
 
-#tree-module .query {
-    margin-top: 10px;
-    margin-left: 20px;
+#clear {
+    margin-left: 10px;
 }
 
-#tree-module .nodebody-visible img {
-    display: inline-block;
-    vertical-align: middle;
+#result {
+    font-size: 14px;
+    font-family: "Microsoft YaHei UI";
+    height: 16px;
+}
+
+
+/* 以下是结点部分的样式 */
+
+.nodebody-visible {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin: 5px 18px;
+    background-color: #ffffff;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.nodebody-hidden {
+    display: none;
 }
 
 .arrow {
@@ -26,7 +47,7 @@
     margin-right: 6px;
 }
 
-.right-arrow {
+.arrow-right {
     width: 0;
     height: 0;
     border-left: 10px solid #6898c2;
@@ -35,7 +56,7 @@
     cursor: pointer;
 }
 
-.down-arrow {
+.arrow-down {
     width: 0;
     height: 0;
     border-top: 10px solid #6898c2;
@@ -44,18 +65,61 @@
     cursor: pointer;
 }
 
-.empty-arrow {
+.arrow-empty {
     border-left: 10px solid transparent;
 }
 
 .node-title {
+    font-family: "Microsoft YaHei UI";
+    font-size: 14px;
     color: #6898c2;
+    line-height: 1.5em;
 }
 
 .node-title:hover {
     color: blue;
+    cursor: pointer;
 }
 
-.nodebody-visible ul li{
-  list-style: none;
+.node-title-highlight {
+    color: red;
+    font-weight: bold;
+}
+
+.addIcon,
+.deleteIcon {
+    display: none;
+    vertical-align: top;
+}
+
+.addIcon:hover,
+.deleteIcon:hover {
+    cursor: pointer;
+}
+
+.node-header:hover>.addIcon,
+.node-header:hover>.deleteIcon {
+    display: inline;
+}
+
+br {
+    clear: both;
+}
+
+legend {
+    font-family: "黑体";
+    font-size: 20px;
+}
+
+.root,
+fieldset {
+    float: left;
+}
+
+.error {
+    color: #f00;
+}
+
+.success {
+    color: lightgreen;
 }

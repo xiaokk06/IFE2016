@@ -11,11 +11,11 @@
     <fieldset id="tree-module">
         <legend>树形组件</legend>
         <div class="query" ng-controller="queryNode">
-            <input type="text" id="searchText" ng-model='nodeValue'>&nbsp;
-            <button id="search" ng-click='queryNode()'>搜索</button>
-            <button id="clear" ng-click='deleteHighlight'>清除</button>
+            <input type="text" id="searchText" ng-model="nodevalue">&nbsp;
+            <button id="search" ng-click='query(nodevalue)'>搜索</button>
+            <button id="clear" ng-click='reset()'>清除</button>
+            <p ng-class="{true: 'error', false: 'success'}[tip]">{{msg}}</p>
         </div>
-        <p id="result"></p>
         <div id="tree-area">
             <div class="nodebody-visible">
                 <label class="node-header" ng-controller="rootNode">
@@ -23,8 +23,6 @@
                     <span class="node-title">{{name}}</span>
                     <img class="addIcon" src="images/add.png">
                 </label>
-                <div ng-controller='initNode'>
-                </div>
             </div>
         </div>
     </fieldset>
