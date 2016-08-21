@@ -31,99 +31,32 @@ function log(message, colour) {
     console.log("%c" + message, "background-color:" + colour);
     consoleText.scrollTop = consoleText.scrollHeight;
 }
-/**
- * 操作面板拖动
- */
-(function() {
-    //获取对象元素
-    var control = document.getElementById("control");
-    var title = document.getElementById("control-title");
-    //初始位置
-    control.style.left = 0;
-    control.style.top = 0;
-    var draggingControl = false;
-    var start = [0, 0];
-    var position = [
-        control.style.left.substr(0, control.style.left.length - 2) - 0,
-        control.style.top.substr(0, control.style.top.length - 2) - 0
-    ];
-    //绑定事件
-    title.addEventListener("mousedown", function(e) { //鼠标按下事件
-        start[0] = e.clientX - position[0];
-        start[1] = e.clientY - position[1];
-        draggingControl = true;
-    });
-    addEventListener("mouseup", function() { //鼠标抬起事件
-        draggingControl = false;
-    });
-    addEventListener("mousemove", function(e) { //鼠标移动事件
-        if (draggingControl) {
-            position[0] = e.clientX - start[0];
-            position[1] = e.clientY - start[1];
-            if (position[0] > window.innerWidth - control.offsetWidth) {
-                position[0] = window.innerWidth - control.offsetWidth;
-            }
-            if (position[0] < 0) {
-                position[0] = 0;
-            }
-            if (position[1] > window.innerHeight - control.offsetHeight) {
-                position[1] = window.innerHeight - control.offsetHeight;
-            }
-            if (position[1] < 0) {
-                position[1] = 0;
-            }
-            control.style.left = position[0] + "px";
-            control.style.top = position[1] + "px";
-        }
-    });
-})();
 
 /**
- * 控制台拖动
+ * 页面中可拖拽的面板拖动
+ * @type {DragDrop}
+ */
+var dragdrop = new DragDrop();
+dragdrop.enable();
+
+/**
+ * 构造控制面板
  */
 (function() {
-    //获取对象元素
-    var consoleDiv = document.getElementById("console");
-    var title = document.getElementById("console-title");
-    //初始位置
-    consoleDiv.style.left = (window.innerWidth - consoleDiv.offsetWidth) + "px";
-    consoleDiv.style.top = (window.innerHeight - consoleDiv.offsetHeight) + "px";
-    var draggingControl = false;
-    var start = [0, 0];
-    var position = [
-        consoleDiv.style.left.substr(0, consoleDiv.style.left.length - 2) - 0,
-        consoleDiv.style.top.substr(0, consoleDiv.style.top.length - 2) - 0
-    ];
-    //绑定事件
-    title.addEventListener("mousedown", function(e) { //鼠标按下事件
-        start[0] = e.clientX - position[0];
-        start[1] = e.clientY - position[1];
-        draggingControl = true;
-    });
-    addEventListener("mouseup", function() { //鼠标抬起事件
-        draggingControl = false;
-    });
-    addEventListener("mousemove", function(e) { //鼠标移动事件
-        if (draggingControl) {
-            position[0] = e.clientX - start[0];
-            position[1] = e.clientY - start[1];
-            if (position[0] > window.innerWidth - consoleDiv.offsetWidth) {
-                position[0] = window.innerWidth - consoleDiv.offsetWidth;
-            }
-            if (position[0] < 0) {
-                position[0] = 0;
-            }
-            if (position[1] > window.innerHeight - consoleDiv.offsetHeight) {
-                position[1] = window.innerHeight - consoleDiv.offsetHeight;
-            }
-            if (position[1] < 0) {
-                position[1] = 0;
-            }
-            consoleDiv.style.left = position[0] + "px";
-            consoleDiv.style.top = position[1] + "px";
-        }
-    });
+    var data = ['第一轨道', '第二轨道', '第三轨道', '第四轨道'],
+        obj = document.getElementById('control-main')
+    len = data.length, i = 0, htmlContent = '';
+    for (; i < len; i++) {
+        var div = document.createElement('div'),
+            html = '';
+        div.dataset.id = i;
+        html = "<span>" + data[i] + "</span>" + '<button type="button" data-type="create" data-status="create">创建飞船</button>' + '<button type="button" disabled="disabled" data-type="drive" data-status="start">飞行</button>' + '<input type="number" title="速度" placeholder="速度" value="1" disabled="disabled" />' + '<button type="button" disabled="disabled" data-type="rate">设置速度</button>';
+        div.innerHTML = html;
+        obj.appendChild(div);
+    }
 })();
+
+
 /**
  * 操作面板
  */

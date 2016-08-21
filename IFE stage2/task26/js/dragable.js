@@ -3,7 +3,7 @@
  */
 
 var DragDrop = function() {
-    var drogdrop = new EventTarget(),
+    var dragdrop = new EventTarget(),
         dragging = null,
         diffx = 0,
         diffy = 0;
@@ -11,8 +11,13 @@ var DragDrop = function() {
     function handlerEvent(event) {
         // 获取事件和对象
         event = EventUtil.getEvent(event);
-        var target = EventUtil.getTarget(event),
+        var target = EventUtil.getTarget(event).parentNode,
             type = event.type;
+        // 获取浏览器视口宽高
+        // 考虑浏览器是否处在混杂模式
+        var width = document.documentElement.clientWidth || document.body.clientWidth,
+            height = document.documentElement.clientHeight || document.body.clientHeight;
+
 
         switch (type) {
             case 'mousedown':
@@ -24,7 +29,7 @@ var DragDrop = function() {
                      * @type {[type]}
                      */
                     diffx = event.clientX - target.offsetLeft;
-                    diffy = event.cilentY - target.offsetTop;
+                    diffy = event.clientY - target.offsetTop;
                     dragdrop.fire({
                         type: 'dragstart',
                         target: dragging,
@@ -35,9 +40,27 @@ var DragDrop = function() {
                 break;
             case 'mousemove':
                 if (dragging !== null) {
-                    dragging.style.left = (event.clientX - diffx) + 'px';
-                    dragging.style.top = (event.clientY - diffY) + 'px';
-                    drogdrop.fire({
+                    var left = event.clientX - diffx;
+                    var top = event.clientY - diffy;
+
+                    /**
+                     * 边缘检测
+                     * 检测拖拽的目标框是否在视口区域之外
+                     */
+                    if (left < 0) {
+                        left = 0;
+                    } else if (left > width - dragging.offsetWidth) {
+                        left = width - dragging.offsetWidth;
+                    }
+
+                    if (top < 0) {
+                        top = 0;
+                    } else if (top > height - dragging.offsetHeight) {
+                        top = height - dragging.offsetHeight;
+                    }
+                    dragging.style.left = left + 'px';
+                    dragging.style.top = top + 'px';
+                    dragdrop.fire({
                         type: 'drag',
                         target: dragging,
                         x: event.clientX,
@@ -46,7 +69,7 @@ var DragDrop = function() {
                 }
                 break;
             case 'mouseup':
-                drogdrop.fire({
+                dragdrop.fire({
                     type: 'dragend',
                     target: dragging,
                     x: event.clientX,
