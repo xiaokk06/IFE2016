@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>form validate</title>
+    <style>
+    table {
+        margin: 50px auto;
+    }
+    
+    td:first-child {
+        height: 50px;
+        font-size: 24px;
+        padding-right: 30px;
+    }
+    
+    td:nth-child(3) {
+        padding-left: 10px;
+    }
+    
+    input {
+        width: 250px;
+        height: 32px;
+        border-radius: 5px;
+        border-color: #ccc;
+    }
+    
+    button {
+        background-color: #2563AD;
+        color: #fff;
+        height: 40px;
+        width: 90px;
+        font-size: 24px;
+        border: none;
+        border-radius: 5px;
+    }
+    
+    #info {
+        font-size: 20px;
+        vertical-align: top;
+    }
+    
+    #info.incorrect {
+        color: red;
+    }
+    
+    #info.tips {
+        color: #ccc;
+    }
+    
+    #info.correct {
+        color: lightgreen;
+    }
+    
+    input.incorrect {
+        border: 1px solid red;
+    }
+    
+    input.correct {
+        border: 1px solid lightgreen;
+    }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>名称</td>
+            <td>
+                <input type="text">
+            </td>
+            <td>
+                <button>验证</button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="info"></td>
+            <td></td>
+        </tr>
+    </table>
+    <script src='../../EventUtil.js'></script>
+    <script>
+    (function(window, undefined, document) {
+        var button = document.getElementsByTagName('button')[0],
+            info = document.getElementById('info'),
+            input = document.getElementsByTagName('input')[0];
+        var tips = {
+            tip: '必填，长度为4~16个字符',
+            empty: '姓名不能为空',
+            wrong: '请输入长度为4~16位字符',
+            correct: '格式正确'
+        };
+
+        info.innerHTML = tips['tip'];
+        info.className = 'tips';
+
+        EventUtil.addHandler(button, 'click', validate);
+
+        function validate(event) {
+            var value = input.value.trim();
+            var resultLen = getLength(value);
+            if (resultLen >= 4 && resultLen <= 16) {
+                input.className = 'correct';
+                info.className = 'correct';
+                info.innerHTML = tips['correct'];
+            } else {
+                input.className = 'incorrect';
+                info.className = 'incorrect';
+                if (resultLen == 0) {
+                    info.innerHTML = tips['empty'];
+                } else {
+                    info.innerHTML = tips['wrong'];
+                }
+            }
+        }
+
+        function getLength(val) {
+            var result = 0,
+                i = 0,
+                len = val.length;
+            for (; i < len; i++) {
+                var charCode = val.charCodeAt(i);
+                if (charCode >= 0 && charCode <= 128) {
+                    result += 1;
+                } else {
+                    result += 2;
+                }
+            }
+            return result;
+        }
+    })(window, undefined, document);
+    </script>
+</body>
+
+</html>
