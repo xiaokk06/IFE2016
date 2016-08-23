@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>form validate</title>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .container {
+        width: 420px;
+        margin: 0 auto;
+    }
+    
+    table {
+        overflow: hidden;
+        zoom: 1;
+        margin: 20px 0;
+    }
+    
+    table td {
+        padding: 5px 15px;
+    }
+    
+    input {
+        width: 300px;
+        height: 30px;
+        border-radius: 6px;
+        /*border: 1px solid #b0b0b0;*/
+        border-width: 1px;
+        border-style: solid;
+        text-indent: 10px;
+    }
+    
+    input.origin {
+        border-color: #b0b0b0;
+    }
+    
+    input:focus {
+        border-color: #61ade9;
+        box-shadow: 0px 1px 4px #61ade9;
+    }
+    
+    input.correct {
+        border-color: lightgreen;
+    }
+    
+    input.incorrect {
+        border-color: red;
+    }
+    
+    .visible {
+        display: table-row;
+    }
+    
+    .correct {
+        color: green;
+    }
+    
+    .incorrect {
+        color: red;
+    }
+    
+    .hint {
+        font-size: 12px;
+        color: #b0b0b0;
+    }
+    
+    label {
+        display: block;
+        width: 100%;
+        text-align: right;
+    }
+    
+    button {
+        float: right;
+        border-radius: 5px;
+        border: 1px solid #2f79ba;
+        margin-left: 20px;
+        padding: 5px 10px;
+        color: white;
+        background-color: #2f79ba;
+        cursor: pointer;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form>
+            <table>
+                <tr>
+                    <td>
+                        <label for="name">名称</label>
+                    </td>
+                    <td>
+                        <input type="text" id="name" />
+                    </td>
+                </tr>
+                <tr class='hint'>
+                    <td></td>
+                    <td name='name' class="origin">必填，长度为4~16位字符</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="password">密码</label>
+                    </td>
+                    <td>
+                        <input type="password" id="password" />
+                    </td>
+                </tr>
+                <tr class='hint'>
+                    <td></td>
+                    <td name="password" class="origin">必填，长度为4~16位字符,包含字母和数字</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="rePassword">确认密码</label>
+                    </td>
+                    <td>
+                        <input type="password" id="rePassword" />
+                    </td>
+                </tr>
+                <tr class='hint'>
+                    <td></td>
+                    <td name="rePassword" class="origin">必填，必须与密码相同</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="email">邮箱</label>
+                    </td>
+                    <td>
+                        <input type="email" id="email" />
+                    </td>
+                </tr>
+                <tr class='hint'>
+                    <td></td>
+                    <td name="email" class="origin">填写正确的邮箱格式</td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="phone">手机</label>
+                    </td>
+                    <td>
+                        <input type="text" id="phone" />
+                    </td>
+                </tr>
+                <tr class='hint'>
+                    <td></td>
+                    <td name="phone" class="origin">请输入11位手机号码</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <!-- 页面上有这样一个按钮，每次点击这个按钮的时候，执行完button的click事件后，会自动的重新刷新一下当前的页面 -->
+                        <!-- button,input type=button按钮在IE和w3c，firefox浏览器区别：
+                            1、当在IE浏览器下面时，button标签按钮，input标签type属性为button的按钮是一样的功能，不会对表单进行任何操作。
+                            2、但是在W3C浏览器，如Firefox下就需要注意了，button标签按钮会提交表单，而input标签type属性为button不会对表单进行任何操作。 -->
+                        <!-- 解决方法 为button按钮增加一个type=”button”属性。 -->
+                        <button type="button" id="submit">提交</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script src='../../EventUtil.js'></script>
+    <script src='./validate.js'></script>
+    <script>
+    var validate = new Validate();
+    validate.enable();
+    </script>
+</body>
+
+</html>

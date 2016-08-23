@@ -117,18 +117,23 @@
         }
 
         function getLength(val) {
-            var result = 0,
-                i = 0,
-                len = val.length;
-            for (; i < len; i++) {
-                var charCode = val.charCodeAt(i);
-                if (charCode >= 0 && charCode <= 128) {
-                    result += 1;
-                } else {
-                    result += 2;
-                }
-            }
-            return result;
+            // var result = 0,
+            //     i = 0,
+            //     len = val.length;
+            // for (; i < len; i++) {
+            //     var charCode = val.charCodeAt(i);
+            //     if (charCode >= 0 && charCode <= 128) {
+            //         result += 1;
+            //     } else {
+            //         result += 2;
+            //     }
+            // }
+            // return result;
+
+            /**
+             * 使用正则表达式进行简写
+             */
+            return val.replace(new RegExp(/^\x00-\xff/, 'g'), 'aa').length;
         }
     })(window, undefined, document);
     </script>
