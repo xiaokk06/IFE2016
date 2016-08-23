@@ -24,7 +24,7 @@
     }
     
     table td {
-        padding: 5px 15px;
+        padding: 5px 10px;
     }
     
     input {
@@ -173,6 +173,35 @@
     <script>
     var validate = new Validate();
     validate.enable();
+    var submit = document.getElementById('submit');
+
+    function submitForm() {
+        var input = document.getElementsByTagName('input'),
+            len = input.length,
+            i = 0;
+        if (navigator.userAgent.indexOf('Firefox') > -1) {
+            for (; i < len; i++) {
+                // input[i].dispatchEvent('blur');
+                input[i].blur();
+            }
+        } else {
+            for (; i < len; i++) {
+                // input[i].dispatchEvent('focusout');
+                input[i].focusout();
+            }
+        }
+
+        for (i = 0; i < len; i++) {
+            if (input[i].className != 'correct') {
+                alert('提交失败!');
+                return false;
+            }
+        }
+        alert('提交成功!');
+        return true;
+    }
+
+    EventUtil.addHandler(submit, 'click', submitForm);
     </script>
 </body>
 
