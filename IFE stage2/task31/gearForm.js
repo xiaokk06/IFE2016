@@ -15,33 +15,48 @@
 /**
  * 实际中这里的数据除第一个select之外都应该动态获取
  * 或者是直接由服务器一次性返回存储在浏览器端
+ *
+ * 每次change事件向服务器端请求数据？
+ * 必要性不大 因为表单数据本来内存也不大 就可以直接在第一次直接从服务端获取存在客户端
+ *  数据有改动的时候可以在下一次刷新页面的时候获取 防止频繁的请求影响用户体验 
+ *  如果是数据实时性要求比较高的时候可以采取 
+ * @type {Object}
+ */
+
+/**
+ * 数据格式需要进行修改
+ * 数据全部采用对象的方存储 舍弃数组方式
+ * $msg=array('bj'=>'123','hz'=>'456');
+ * $result = array('error' => 0, "msg" => $msg);
+ * echo json_encode($result);
+ * 服务器端以上面的形式返回 浏览器可以直接调用
  * @type {Object}
  */
 var data = {
-    level:3,
-    city: {
-        bj: '北京',
-        sh: '上海',
-        hz: '杭州'
+    "level": 3,
+    "city": {
+        "bj": "北京",
+        "sh": "上海",
+        "hz": "杭州"
     },
-    bj: {
-        bj_university: '大学',
-        bj_highScool: '高中'
+    "bj": {
+        "bj_university": "大学",
+        "bj_highScool": "高中"
     },
-    sh: {
-        sh_university: '大学',
-        sh_highScool: '高中'
+    "sh": {
+        "sh_university": "大学",
+        "sh_highScool": "高中"
     },
-    hz: {
-        hz_university: '大学',
-        hz_highScool: '高中'
+    "hz": {
+        "hz_university": "大学",
+        "hz_highScool": "高中"
     },
-    bj_university: ["北京大学", "清华大学", "北京航空航天大学"],
-    bj_highScool: ['北京四中', '北京五中'],
-    sh_university: ["复旦大学", "上海交通大学", "同济大学"],
-    sh_highScool: ['上海第一中学', '交大附中'],
-    hz_university: ["浙江大学", "杭州电子科技大学", "浙江工业大学"],
-    hz_highScool: ['杭州第一中学', '杭州附中'],
+    "bj_university": ["北京大学", "清华大学", "北京航空航天大学"],
+    "bj_highScool": ["北京四中", "北京五中"],
+    "sh_university": ["复旦大学", "上海交通大学", "同济大学"],
+    "sh_highScool": ["上海第一中学", "交大附中"],
+    "hz_university": ["浙江大学", "杭州电子科技大学", "浙江工业大学"],
+    "hz_highScool": ["杭州第一中学", "杭州附中"]
 }
 
 
@@ -124,12 +139,12 @@ var formGear = function(element) {
          *把初始化操作放在window.onload方法里面执行就可以解决ie下不显示新值得问题
          * 
          */
-        
+
         /**
          * 根据表单级数自动添加select个数
          */
-        for(var i=0;i<data['level'];i++){
-            var newSelect=document.createElement('select');
+        for (var i = 0; i < data['level']; i++) {
+            var newSelect = document.createElement('select');
             element.appendChild(newSelect);
         }
         var select = document.querySelector('select');
