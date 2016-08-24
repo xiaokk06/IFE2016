@@ -237,7 +237,7 @@
                         initMouseEvent( 'type', bubbles, cancelable, windowObject, detail, screenX, screenY,clientX, clientY, ctrlKey, altKey, shiftKey, metaKey, button, relatedTarget )
                     MutationEvents ：
                         initMutationEvent( 'type', bubbles, cancelable, relatedNode, prevValue, newValue,attrName, attrChange )
-                * 3. 在初始化完成后就可以随时触发需要的事件了，为大家介绍targetObj.dispatchEvent(event)使targetObj对象的event事件触发。需要注意的是在IE 5.5+版本上请用fireEvent方法，还是浏览兼容的考虑(这里没必要考虑兼容性 因为createEvent并不jianrongIE8及以下版本)
+                * 3. 在初始化完成后就可以随时触发需要的事件了，为大家介绍targetObj.dispatchEvent(event)使targetObj对象的event事件触发。需要注意的是在IE 5.5+版本上请用fireEvent方法，还是浏览兼容的考虑(这里没必要考虑兼容性 因为createEvent并不兼容IE8及以下版本)
                  */
                 var evObj=document.createEvent('HTMLEvents');
                 evObj.initEvent('focusout',true,false);
