@@ -50,7 +50,7 @@
         display: none;
     }
     
-    .select {
+    select {
         margin-left: 30px;
         width: 160px;
         height: 34px;
@@ -88,15 +88,8 @@
         <div id="select-container">
             <div class="inSchool">
                 <span>学校</span>
-                <select class="select" id="select1">
-                   
-                </select>
-                <select class="select" id="select2">
-                    
-                </select>
-                <select class="select">
-                    
-                </select>
+                <div id="selectWrap">
+                </div>
             </div>
             <div class="outSchool hide">
                 <span>就业单位</span>
@@ -126,7 +119,12 @@
             }
         }
         EventUtil.addHandler(radioSelect, 'change', radioChange);
-        var Formgear = new formGear();
+        /**
+         * 传入包含select的父容器即可
+         * @type {[type]}
+         */
+        var selectWrap = document.getElementById('selectWrap');
+        var Formgear = new formGear(selectWrap);
         // formgear.initForm();
         Formgear.enable();
     }

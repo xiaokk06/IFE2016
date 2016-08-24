@@ -18,6 +18,7 @@
  * @type {Object}
  */
 var data = {
+    level:3,
     city: {
         bj: '北京',
         sh: '上海',
@@ -48,11 +49,11 @@ var data = {
  * 联动表单封装 
  * 使用单例模式比较适合
  */
-var formGear = function() {
+var formGear = function(element) {
     var formgear = new EventTarget();
 
     /**
-     * 获取元素索引 
+     * 获取元素索引 暂时没用到 不过方法写法可以借鉴
      * @param  {[type]} element [description]
      * @return {[type]}         [description]
      */
@@ -123,6 +124,14 @@ var formGear = function() {
          *把初始化操作放在window.onload方法里面执行就可以解决ie下不显示新值得问题
          * 
          */
+        
+        /**
+         * 根据表单级数自动添加select个数
+         */
+        for(var i=0;i<data['level'];i++){
+            var newSelect=document.createElement('select');
+            element.appendChild(newSelect);
+        }
         var select = document.querySelector('select');
         select.options.length = 0;
         var originData = data['city'];
