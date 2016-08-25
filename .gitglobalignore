@@ -1,2 +1,2 @@
-ignore /node_modules/
-ignore /app/
+node_modules/
+app/
