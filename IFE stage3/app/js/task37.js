@@ -1,24 +1,59 @@
-function $(sel) {
-    return document.querySelector(sel);
-}
-
+/**
+ * autohr by xiaok
+ * 2016/08/26
+ */
 
 let dialog = $('.dialog');
 let main = $('main');
 
-$('button').onclick = function() {
-
+EventUtil.addHandler($('.show'), 'click', function(event) {
     dialog.setAttribute('open', '');
-
     main.classList.add('de-emphasized');
+    setPlace();
+});
+
+function closeDialog(event) {
+    event = EventUtil.getEvent(event);
+    let target = EventUtil.getTarget(event);
+    let clsName = target.className;
+    /**
+     * do something different for different target
+     * @param  {[type]} clsName [description]
+     * @return {[type]}         [description]
+     */
+    if (clsName === 'sure') {
+        Dialog();
+    } else {
+        Dialog();
+    }
 }
 
-dialog.onclick = function() {
+/**
+ * dialog水平垂直居中定位
+ * @return {[type]} [description]
+ */
+function setPlace() {
+    let width = document.documentElement.clientWidth || document.body.clientWidth;
+    let height = document.documentElement.clientHeight || document.body.clientHeight;
+    let dialogWidth = dialog.clientWidth;
+    let dialogHeight = dialog.clientHeight;
+    console.log(dialogWidth);
+    console.log(dialogHeight);
+    dialog.style.top = (height - dialogHeight) / 2 + 'px';
+    dialog.style.left = (width - dialogWidth) / 2 + 'px';
+};
+
+function Dialog() {
     if (dialog.close) {
         dialog.close();
     } else {
         dialog.removeAttribute('open');
     }
-
-    main.classList.remove('de-emphasized');
 }
+
+var dragdrop = new DragDrop();
+dragdrop.enable();
+
+
+EventUtil.addHandler($('.sure'), 'click', closeDialog);
+EventUtil.addHandler($('.close'), 'click', closeDialog);

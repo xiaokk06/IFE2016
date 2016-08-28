@@ -3,46 +3,119 @@
     filter: $filter;
 }
 
+@mixin user-select($user-select) {
+    -webkit-user-select: $user-select;
+    -moz-user-select: $user-select;
+    -ms-user-select: $user-select;
+    user-select: $user-select;
+}
+
+$buttonColor:#2f79ba;
+$buttonFontORbgColor:#ccc;
+$fontColor:#000;
+$dialogPadding:2rem;
+
+/**
+ * 全局取消文字选择
+ */
+
+* {
+    @include user-select(none);
+}
+
 main {
     transition: .6s;
     background: white;
 }
 
 main.de-emphasized {
-    /*-webkit-filter: blur(3px);
-    filter: blur(3px);*/
     @include filter(3px);
 }
+
 
 /**
  * 使用rem单位就可以实现适应屏幕带下
  * 同时利用left和top定位实现了垂直居中
+ * 然而这种方式实现的定位会影响拖拽事件中的边缘检测
+ * 因此最终采用js进行定位
  */
+
 .dialog {
-    cursor: pointer;
-    position: fixed;
+    background-color: white;
+    position: absolute;
+    //使用transform进行元素水平垂直居中定位
+    //该属性会改变坐标系的位置导致检测边界的时候失败
+    //使坐标轴原点向上偏移1/2的offsetHeight
+    //向左偏移1/2的offsetWidth(实际测量得到的结论)
+    // transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     z-index: 1;
     width: 10rem;
-    padding: 2rem;
-    margin: -5rem;
+    padding: $dialogPadding;
+    //margin会影响offsetHeight大小
+    // margin: -5rem;
     border: 1px solid silver;
     border-radius: .5rem;
     box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .5), 0 0 0 100vmax rgba(0, 0, 0, .2);
+    resize: both;
+    overflow: hidden;
+    font-size: 2rem;
+    min-width: 10rem;
+    min-height: 8rem;
+    max-height: 20rem;
+    max-width: 40rem;
 }
 
 .dialog:not([open]) {
     display: none;
 }
 
+.dialogTitle {
+    padding: 0.5em;
+    font-size: 0.5em;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    display: block;
+    background-color: #ccc;
+    cursor: move;
+}
+
+.content {
+    margin-top: 0.5em;
+    display: block;
+    font-size: 1em;
+}
+
 button {
     cursor: pointer;
     padding: 5px 10px;
     border-radius: 6px;
-    background-color: #2f79ba;
-    border: 1px solid #2f79ba;
-    color: white;
+    border-style: solid;
+    border-width: 1px;
+    display: inline-block;
+}
+
+.buttonWrap {
+    // text-align: right;
+    position: absolute;
+    bottom: $dialogPadding;
+    right: $dialogPadding;
+}
+
+.show,
+.sure {
+    background-color: $buttonColor;
+    border-color: $buttonColor;
+    color: $buttonFontORbgColor;
+}
+
+.close {
+    background-color: $buttonFontORbgColor;
+    border-color: $buttonFontORbgColor;
+    color: $fontColor;
 }
 
 body {

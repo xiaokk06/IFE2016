@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const sass = require('gulp-sass');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
@@ -19,7 +20,8 @@ gulp.task('convertJS', function() {
 
 // 合并并压缩css
 gulp.task('convertCSS', function() {
-    return gulp.src('app/css/*.css')
+    return gulp.src('app/css/*.scss')
+        //合并
         // .pipe(concat('app.css'))
         // uglify
         // .pipe(cssnano())
@@ -27,12 +29,13 @@ gulp.task('convertCSS', function() {
         // .pipe(rename(function(path) {
         //     path.basename += '';
         // }))
+        .pipe(sass())
         .pipe(gulp.dest('dist/css'));
 })
 
 // 监视文件变化，自动执行任务
 gulp.task('watch', function() {
-    gulp.watch('app/css/*.css', ['convertCSS']);
+    gulp.watch('app/css/*.scss', ['convertCSS']);
     gulp.watch('app/js/*.js', ['convertJS', 'browserify']);
 })
 

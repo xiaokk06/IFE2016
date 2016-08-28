@@ -8,13 +8,21 @@
 </head>
 
 <body>
-    <button>Show dialog</button>
+    <button class="show">Show dialog</button>
     <main>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio facilis unde dolore totam velit aliquid. Voluptas ratione, eaque rerum porro ut. Praesentium blanditiis quas dignissimos hic voluptate repudiandae nihil est!
     </main>
-    <div class="dialog">
-        hello
+    <div class="dialog draggable">
+        <span class="dialogTitle">弹出框</span>
+        <span class="content">hello</span>
+        <div class="buttonWrap">
+            <button class="sure">确定</button>
+            <button class="close">关闭</button>
+        </div>
     </div>
+    <script src='../elementSelector.js'></script>
+    <script src='../EventUtil.js'></script>
+    <script src='../IFE stage2/task26/js/draggable.js'></script>
     <script src='dist/js/task37.js'></script>
 </body>
 
