@@ -33,6 +33,16 @@ main.de-emphasized {
   border: 1px solid silver;
   border-radius: .5rem;
   box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.5), 0 0 0 100vmax rgba(0, 0, 0, 0.2);
+  /**
+     * [resize description]
+     * resize属性必须和overflow属性同时出现才会起作用
+     * 兼容性
+     * firefox 47+ 
+     * chrome 29+
+     * safari 9.1+
+     * opera 29+
+     * @type {[type]}
+     */
   resize: both;
   overflow: hidden;
   font-size: 2rem;

@@ -58,8 +58,6 @@ var DragDrop = function() {
                     } else if (top > height - dragging.offsetHeight) {
                         top = height - dragging.offsetHeight;
                     }
-                    console.log(left);
-                    console.log(top);
                     dragging.style.left = left + 'px';
                     dragging.style.top = top + 'px';
                     dragdrop.fire({

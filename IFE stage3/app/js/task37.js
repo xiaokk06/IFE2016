@@ -35,10 +35,8 @@ function closeDialog(event) {
 function setPlace() {
     let width = document.documentElement.clientWidth || document.body.clientWidth;
     let height = document.documentElement.clientHeight || document.body.clientHeight;
-    let dialogWidth = dialog.clientWidth;
-    let dialogHeight = dialog.clientHeight;
-    console.log(dialogWidth);
-    console.log(dialogHeight);
+    let dialogWidth = dialog.offsetWidth;
+    let dialogHeight = dialog.offsetHeight;
     dialog.style.top = (height - dialogHeight) / 2 + 'px';
     dialog.style.left = (width - dialogWidth) / 2 + 'px';
 };
