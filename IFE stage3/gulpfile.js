@@ -10,12 +10,12 @@ const source = require('vinyl-source-stream');
 
 // 编译并压缩js
 gulp.task('convertJS', function() {
-    return gulp.src('app/js/*.js')
+    return gulp.src('app/js/task38/*.js')
         .pipe(babel({
             presets: ['es2015']
         }))
         // .pipe(uglify())
-        .pipe(gulp.dest('dist/js'))
+        .pipe(gulp.dest('dist/js/task38'))
 })
 
 // 合并并压缩css

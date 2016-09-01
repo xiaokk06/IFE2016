@@ -1,0 +1,31 @@
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 2px solid purple;
+    padding: 5px 10px;
+}
+
+$arrowColor:pink;
+.divStyle {
+    display: inline;
+    width: 12px;
+    height: 0px;
+}
+
+.divArrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+}
+
+.upArrow {
+    border-bottom: 10px solid $arrowColor;
+}
+
+.downArrow {
+    border-top: 10px solid $arrowColor;
+}
