@@ -36,7 +36,7 @@ gulp.task('convertCSS', function() {
 // 监视文件变化，自动执行任务
 gulp.task('watch', function() {
     gulp.watch('app/css/*.scss', ['convertCSS']);
-    gulp.watch('app/js/*.js', ['convertJS', 'browserify']);
+    gulp.watch('app/js/task38/*.js', ['convertJS', 'browserify']);
 })
 
 // browserify

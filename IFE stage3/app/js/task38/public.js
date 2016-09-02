@@ -42,4 +42,4 @@ var getSortFns = function(name) {
     }
 }
 
-var table = new SortableTable($('#Table'), scoreData, names, getSortFns);
+var table = new SortableTable($('#table'), scoreData, names, getSortFns);

@@ -1,5 +1,6 @@
 table {
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  margin: 1rem; }
 
 td {
   border: 2px solid purple;
@@ -11,6 +12,7 @@ td {
   height: 0px; }
 
 .divArrow {
+  cursor: pointer;
   display: inline-block;
   width: 0;
   height: 0;
