@@ -30,7 +30,21 @@ var scoreData = {
     '十一娃': randomScore(3),
     '十二娃': randomScore(3),
     '十三娃': randomScore(3),
-    '十四娃': randomScore(3)
+    '十四娃': randomScore(3),
+    '十五娃': randomScore(3),
+    '十六娃': randomScore(3),
+    '十七娃': randomScore(3),
+    '十八娃': randomScore(3),
+    '十九娃': randomScore(3),
+    '二十娃': randomScore(3),
+    '二十一娃': randomScore(3),
+    '二十二娃': randomScore(3),
+    '二十三娃': randomScore(3),
+    '二十四娃': randomScore(3),
+    '二十五娃': randomScore(3),
+    '二十六娃': randomScore(3),
+    '二十七娃': randomScore(3),
+    '二十八娃': randomScore(3)
 };
 
 var names = ['姓名', '语文', '数学', '英语', '总分'];
@@ -44,4 +58,6 @@ var getSortFns = function getSortFns(name) {
     };
 };
 
-var table = new SortableTable($('#table'), scoreData, names, getSortFns);
+var isFrozen = true;
+
+var table = new SortableTable($('#table'), scoreData, names, getSortFns, isFrozen);

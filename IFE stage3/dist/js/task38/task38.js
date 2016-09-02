@@ -5,12 +5,14 @@
  * 构造器原型模式
  */
 
-var SortableTable = function SortableTable(element, data, names, sortFunc) {
+var SortableTable = function SortableTable(element, data, names, sortFunc, isFrozen) {
     this.element = element;
     this.data = data;
     this.names = names;
     this.sortFunc = sortFunc;
     this.curOrder = null;
+    this.isFrozen = isFrozen;
+    this.headClone = null;
 
     this.init();
 };
@@ -23,10 +25,11 @@ SortableTable.prototype = {
             this.curOrder.push(key);
         }
         // insert names row
-        var items = '<tr>';
+        var items = '<thead>';
         items += this.names.map(this.createTd).join('');
-        items += '</tr>';
+        items += '</thead>';
         this.element.innerHTML = items;
+        this.element.children[0].style.backgroundColor = '#F3B5B5';
 
         this.render();
         this.reSort();
@@ -54,6 +57,7 @@ SortableTable.prototype = {
     render: function render() {
         var tbody = document.createElement('tbody');
         this.element.appendChild(tbody);
+
         function newTd(str) {
             return '<td>' + str + '</td>';
         }
@@ -68,7 +72,16 @@ SortableTable.prototype = {
 
         // console.log(items);
 
-        this.element.children[1].innerHTML = items;
+        if (this.element.children[1] && this.element.children[1].tagName.toLowerCase() != 'thead') {
+            this.element.children[1].innerHTML = items;
+        } else {
+            this.element.children[2].innerHTML = items;
+        }
+        this.headClone = document.createElement('thead');
+        if (this.isFrozen) {
+            this.headFreeze();
+        }
+        // console.log(this.headClone);
     },
     reSort: function reSort() {
         var self = this;
@@ -110,5 +123,68 @@ SortableTable.prototype = {
             parentTd = parentTd.previousElementSibling;
         }
         return index;
+    },
+    /**
+     * [headFreeze description]
+     * 实际就是重新添加一个thead元素在滚动的时候显示出来
+     * @return {[type]} [description]
+     */
+    headFreeze: function headFreeze() {
+        var self = this;
+        var thead = this.element.children[0];
+        var height = this.element.offsetHeight;
+        var width = this.element.offsetWidth;
+        var headOffsetTop = thead.offsetTop;
+        var headOffsetLeft = thead.offsetLeft;
+        if (this.element.children[1] && this.element.children[1].tagName.toLowerCase() != 'thead') {
+
+            this.headClone.className = ' hide';
+            this.headClone.style.backgroundColor = '#F3B5B5';
+            this.headClone.innerHTML = thead.innerHTML;
+            //减去的20为左右padding的宽度
+            this.headClone.children[0].children[0].style.width = thead.children[0].children[0].clientWidth - 20 + 'px';
+            this.element.insertBefore(this.headClone, thead);
+        }
+        EventUtil.addHandler(window, 'scroll', function (event) {
+            var headClone = self.element.children[0];
+            headClone.style.width = width + 'px';
+            var scrollTop = self.getScrollTop();
+            if (scrollTop >= headOffsetTop + height) {
+                if (headClone.className.indexOf('hide') == -1) {
+                    headClone.className = 'hide';
+                }
+            } else if (scrollTop > headOffsetTop) {
+                // headClone.className;
+                console.log(headClone.className);
+                if (headClone.className.indexOf('hide') > -1) {
+                    headClone.className -= ' hide';
+                }
+                if (headClone.className.indexOf('show') == -1) {
+                    headClone.className += ' show';
+                }
+                if (headClone.className.indexOf('fixedThead') == -1) {
+                    headClone.className += ' fixedThead';
+                }
+                headClone.className = headClone.className;
+            } else {
+                headClone.className = ' hide';
+            }
+        });
+    },
+    /**
+     * [getScrollTop description]
+     * 获取滚动值
+     * @return {[type]} [description]
+     */
+    getScrollTop: function getScrollTop() {
+        var scrollPos;
+        if (window.pageYOffset) {
+            scrollPos = window.pageYOffset;
+        } else if (document.compatMode && document.compatMode != 'BackCompat') {
+            scrollPos = document.documentElement.scrollTop;
+        } else if (document.body) {
+            scrollPos = document.body.scrollTop;
+        }
+        return scrollPos;
     }
 };

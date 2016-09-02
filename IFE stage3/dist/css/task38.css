@@ -20,7 +20,23 @@ td {
   border-right: 5px solid transparent; }
 
 .upArrow {
-  border-bottom: 10px solid pink; }
+  border-bottom: 10px solid lightgreen; }
 
 .downArrow {
-  border-top: 10px solid pink; }
+  border-top: 10px solid lightgreen; }
+
+.fixedThead {
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  margin: 0; }
+
+.hide {
+  display: none; }
+
+.show {
+  display: inline-block; }
+
+.paddingHeight {
+  margin: 1rem;
+  height: 900px; }

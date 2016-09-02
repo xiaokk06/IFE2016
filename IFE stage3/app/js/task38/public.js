@@ -13,7 +13,7 @@ function randomScore(n) {
     arr.push(sum);
     return arr;
 }
- 
+
 var scoreData = {
     '大娃': randomScore(3),
     '二娃': randomScore(3),
@@ -29,6 +29,20 @@ var scoreData = {
     '十二娃': randomScore(3),
     '十三娃': randomScore(3),
     '十四娃': randomScore(3),
+    '十五娃': randomScore(3),
+    '十六娃': randomScore(3),
+    '十七娃': randomScore(3),
+    '十八娃': randomScore(3),
+    '十九娃': randomScore(3),
+    '二十娃': randomScore(3),
+    '二十一娃': randomScore(3),
+    '二十二娃': randomScore(3),
+    '二十三娃': randomScore(3),
+    '二十四娃': randomScore(3),
+    '二十五娃': randomScore(3),
+    '二十六娃': randomScore(3),
+    '二十七娃': randomScore(3),
+    '二十八娃': randomScore(3)
 }
 
 var names = ['姓名', '语文', '数学', '英语', '总分'];
@@ -42,4 +56,6 @@ var getSortFns = function(name) {
     }
 }
 
-var table = new SortableTable($('#table'), scoreData, names, getSortFns);
+let isFrozen = true;
+
+let table = new SortableTable($('#table'), scoreData, names, getSortFns, isFrozen);

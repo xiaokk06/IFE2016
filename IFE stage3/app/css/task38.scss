@@ -8,7 +8,7 @@ td {
     padding: 5px 10px;
 }
 
-$arrowColor:pink;
+$arrowColor:lightgreen;
 .divStyle {
     display: inline;
     width: 12px;
@@ -30,4 +30,25 @@ $arrowColor:pink;
 
 .downArrow {
     border-top: 10px solid $arrowColor;
+}
+
+.fixedThead {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    margin: 0;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: inline-block;
+}
+
+.paddingHeight {
+    margin: 1rem;
+    height: 900px;
+    // width: 100%;
 }
