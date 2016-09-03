@@ -58,7 +58,12 @@ datePicker.prototype = {
             this.mianEle.appendChild(_el);
         }
 
-        this.container.appendChild(this.mianEle);
+        this.mianEle.style.display = 'none';
+
+        console.log(this.container);
+
+        var parentNode = this.container.parentNode;
+        parentNode.insertBefore(this.mianEle, this.container.nextElementSibling);
 
         var self = this;
 
@@ -67,10 +72,22 @@ datePicker.prototype = {
             var target = EventUtil.getTarget(event);
             if (target.tagName.toLowerCase() === 'span') {
                 var index = self.getIndex(target, self.mianEle);
+                //如果点击星期就不跳转
+                if (index >= 1 && index <= 7) {
+                    return;
+                }
                 var selectedIndex = self.getIndex(self.selectedEle, self.mianEle);
                 var date = new Date(self.date);
                 date.setDate(date.getDate() + index - selectedIndex);
                 self.selectDate(date);
+            }
+        });
+
+        EventUtil.addHandler(this.container, 'click', function (event) {
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+            if (target == self.container) {
+                self.mianEle.style.display = 'block';
             }
         });
 
@@ -107,11 +124,11 @@ datePicker.prototype = {
 
             // 不是同月的色彩变淡
             if (dat.getMonth() !== date.getMonth()) {
-                ele.style.color = 'lightgray';
+                ele.style.color = '#787878';
             } else {
                 // 周六日字变红
                 if (dat.getDay() === 0 || dat.getDay() === 6) {
-                    ele.style.color = 'rgb(200,27,1)';
+                    ele.style.color = '#337DBE';
                 } else {
                     ele.style.color = '';
                 }
@@ -119,7 +136,7 @@ datePicker.prototype = {
 
             // 被选中的日期背景变红
             if (dat.getTime() === date.getTime()) {
-                ele.style.backgroundColor = 'rgb(200,27,1)';
+                ele.style.backgroundColor = '#337DBE';
                 ele.style.color = 'white';
                 this.selectedEle = ele;
             }
@@ -152,13 +169,15 @@ datePicker.prototype = {
         if (date.getMonth() === this.date.getMonth()) {
             var oIndex = this.getIndex(this.selectedEle, this.mianEle);
             var temp = allSpan[oIndex + date.getDate() - this.date.getDate() - 1];
-            temp.style.backgroundColor = 'rgb(200,27,1)';
+            temp.style.backgroundColor = '#337DBE';
             temp.style.color = 'white';
             this.selectedEle = temp;
         } else {
             this.renderByDate(date);
         }
         this.date = date;
+        this.mianEle.style.display = 'none';
+        this.setInput();
     },
     getIndex: function getIndex(node, parent) {
         parent = parent || document;
@@ -168,5 +187,13 @@ datePicker.prototype = {
             node = node.previousElementSibling;
         }
         return index;
+    },
+    setInput: function setInput() {
+        var year = this.date.getFullYear();
+        var month = this.date.getMonth() + 1 < 10 ? '0' + (this.date.getMonth() + 1) : this.date.getMonth() + 1;
+        var day = this.date.getDate() < 10 ? '0' + this.date.getDate() : this.date.getDate();
+        var result = '' + year + '/' + month + '/' + day;
+        console.log(result);
+        this.container.value = result;
     }
 };
