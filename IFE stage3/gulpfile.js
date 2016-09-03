@@ -10,12 +10,12 @@ const source = require('vinyl-source-stream');
 
 // 编译并压缩js
 gulp.task('convertJS', function() {
-    return gulp.src('app/js/task38/*.js')
+    return gulp.src('app/js/*.js')
         .pipe(babel({
             presets: ['es2015']
         }))
         // .pipe(uglify())
-        .pipe(gulp.dest('dist/js/task38'))
+        .pipe(gulp.dest('dist/js'))
 })
 
 // 合并并压缩css
@@ -36,7 +36,7 @@ gulp.task('convertCSS', function() {
 // 监视文件变化，自动执行任务
 gulp.task('watch', function() {
     gulp.watch('app/css/*.scss', ['convertCSS']);
-    gulp.watch('app/js/task38/*.js', ['convertJS', 'browserify']);
+    gulp.watch('app/js/*.js', ['convertJS', 'browserify']);
 })
 
 // browserify
