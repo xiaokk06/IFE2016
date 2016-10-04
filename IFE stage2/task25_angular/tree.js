@@ -1,17 +1,6 @@
 var tree = angular.module('tree', []).run(function($rootScope) {
-    // $rootScope.isLeaf = function() {
-    //     var childDiv = this.getElementdByTagName('div');
-    //     return childDiv.length == 0;
-    // };
-    // $rootScope.isFolded = function() {
-    //     if (this.isLeaf()) return false;
-    //     if (this.this.getElementdByTagName('div').[0].className == 'nodebody-visible') return false;
-    //     return true;
-    // };
+
 });
-
-
-
 
 tree.controller('rootNode', ['$scope', function($scope) {
     $scope.name = '前端攻城狮';
@@ -19,7 +8,6 @@ tree.controller('rootNode', ['$scope', function($scope) {
 
 tree.controller('queryNode', function($scope, treeRoot, addEvent) {
     $scope.root = treeRoot;
-
     // 给root绑定广度优先搜索函数，无需访问DOM，返回一个搜索结果队列
     $scope.root.search = function(query) {
         var resultList = [];
